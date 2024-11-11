@@ -10,8 +10,8 @@
                 </section>
             </section> 
             <div class="btn-container">
-                <main-button/>
-                <main-button/>
+                <main-button text="Richtig" colors="lightgreen"/>
+                <main-button text="Falsch" colors="orange"/>
             </div>
         </section>
 </template>
@@ -73,7 +73,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--clr-lightblue);
     border: 1px solid var(--clr-black);
   }
   
@@ -82,8 +81,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--clr-lightgreen);
-    color: var(--clr-black-09);
     transform: rotateY(180deg);
     z-index: 1;
     box-sizing: border-box;
@@ -126,17 +123,4 @@ export default {
     font-size: 1.25rem;
     font-weight: bold;
   }
-
-  .right {
-    background-color: var(--color-green);
-  }
-
-  .wrong {
-    background-color: var(--clr-light-red);
-    margin-left: auto;
-  }
-
-  .card:hover .btn-container {
-    visibility: visible;
-  }
-</style>
+  </style>
