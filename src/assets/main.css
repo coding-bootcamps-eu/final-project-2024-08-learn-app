@@ -7,10 +7,12 @@
 }
 
 :root {
+    --clr-black: black;
     --clr-green-dark:#156064;
-    --clr-green-light:#00c49a;
     --clr-brown:#795c5f;
+    --clr-green-light:#00c49a;
     --clr-orange:#fb8f67;
+    --clr-red: red;
     --clr-white: white;
 }
 
