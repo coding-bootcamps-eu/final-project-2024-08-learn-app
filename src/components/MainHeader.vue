@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'Header',
+  name: 'MainHeader',
   methods: {
     logout() {
       console.log('User ausgeloggt')
