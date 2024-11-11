@@ -36,7 +36,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: var(--clr-green-dark); +1
+  background-color: var(--clr-green-dark);
   color: #fff;
 }
 
