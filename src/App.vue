@@ -1,11 +1,11 @@
 <template>
   <h1>App</h1>
-  <Header />
+  <MainHeader />
   <RouterView />
 </template>
 
 <script>
-import Header from './components/MainHeader.vue'
+import MainHeader from './components/MainHeader.vue'
 
 export default {
   components: {
