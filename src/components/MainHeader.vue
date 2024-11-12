@@ -1,5 +1,5 @@
 <template>
-  <header class="main__header">
+  <header class="main__header" v-if="store.isLoggedIn">
     <!-- LOGO -->
     <div class="header__logo">
       <img src="@/assets/Logo_Learnified.png" alt="Logo" />
@@ -21,15 +21,29 @@
       <button @click="logout" class="header__logout">Ausloggen</button>
     </nav>
   </header>
+
+  <header class="main__header" v-else>
+    <!-- LOGO -->
+    <div class="header__logo">
+      <img src="@/assets/Logo_Learnified.png" alt="Logo" />
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="header__nav" :class="{ 'nav--open': menuOpen }">
+      <button @click="logout" class="header__logout">Einloggen</button>
+    </nav>
+  </header>
 </template>
 
 <script>
+import { useUsersStore } from '@/stores/users'
 export default {
   name: 'MainHeader',
   data() {
     return {
       menuOpen: false,
       isMobile: false,
+      store: useUsersStore(),
     }
   },
   methods: {
