@@ -18,7 +18,8 @@ export default {
 
 <style scoped>
 .page-header {
-  padding: 1rem;
+  padding-block: 1rem;
+  width: 100%;
 }
 
 .page-header h2 {

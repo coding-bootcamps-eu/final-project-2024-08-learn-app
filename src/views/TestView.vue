@@ -1,7 +1,7 @@
 <template>
   <main>
+    <page-header headerText="Testmodus"/>
     <index-card />
-
     <section v-if="showButtons" class="btn-container">
       <main-button text="Richtig" colors="lightgreen" />
       <main-button text="Falsch" colors="orange" />
@@ -12,13 +12,15 @@
 </template>
 
 <script>
-import MainButton from '@/components/MainButton.vue'
-import IndexCard from '@/components/IndexCard.vue'
+import MainButton from '@/components/MainButton.vue';
+import IndexCard from '@/components/IndexCard.vue';
+import PageHeader from '@/components/PageHeader.vue';
 
 export default {
   components: {
     MainButton,
     IndexCard,
+    PageHeader,
   },
   data() {
     return {
