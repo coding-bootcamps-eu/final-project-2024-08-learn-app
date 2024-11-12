@@ -1,15 +1,10 @@
 <template>
-  <h1>App</h1>
-  <MainHeader />
   <RouterView />
 </template>
 
-<script>
-import MainHeader from './components/MainHeader.vue'
-
-export default {
-  components: {
-    MainHeader,
-  },
+<style scoped>
+body {
+  width: 100%;
+  height: 100%;
 }
-</script>
+</style>

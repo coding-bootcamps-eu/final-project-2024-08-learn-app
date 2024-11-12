@@ -24,6 +24,7 @@ export default {
   methods: {
     logout() {
       console.log('User ausgeloggt')
+      this.$router.push('/login')
     },
   },
 }
