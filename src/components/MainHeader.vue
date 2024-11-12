@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="main__header">
     <!-- LOGO -->
     <div class="header__logo">
       <img src="@/assets/Logo_Learnified.png" alt="Logo" />
@@ -14,7 +14,7 @@
 
     <!-- NAVIGATION -->
     <nav class="header__nav" :class="{ 'nav--open': menuOpen }">
-      <router-link to="/" class="nav__item">Titel</router-link>
+      <router-link to="/" class="nav__item">Learnified</router-link>
       <router-link to="/flashcards" class="nav__item">Karteikarten</router-link>
       <router-link to="/quiz" class="nav__item">Quizbox</router-link>
       <router-link to="/profile" class="nav__item">Profil</router-link>
@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 /* MOBILE ANSICHT */
-.header {
+.main__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -132,7 +132,7 @@ export default {
 
 /* DESKTOP-STYLING AB 768px */
 @media (min-width: 768px) {
-  .header {
+  .main__header {
     padding: 1rem 2rem;
     justify-content: space-between;
   }
