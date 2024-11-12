@@ -15,7 +15,7 @@
     <!-- NAVIGATION -->
     <nav class="header__nav" :class="{ 'nav--open': menuOpen }">
       <router-link to="/" class="nav__item">Learnified</router-link>
-      <router-link to="/flashcards" class="nav__item">Karteikarten</router-link>
+      <router-link to="/categories" class="nav__item">Karteikarten</router-link>
       <router-link to="/quiz" class="nav__item">Quizbox</router-link>
       <router-link to="/profile" class="nav__item">Profil</router-link>
       <button @click="logout" class="header__logout">Ausloggen</button>
