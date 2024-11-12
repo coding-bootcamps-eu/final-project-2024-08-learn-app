@@ -1,142 +1,96 @@
 <template>
-    <section class="card">
-            <p class="hover-to-flip">Hover over the card to flip!</p>
-            <section class="card-inner">
-                <section class="card-front">
-                    <h1>Card Front</h1>
-                </section>
-                <section class="card-back">
-                    <h2>Card Back</h2>
-                </section>
-            </section> 
-            <div class="btn-container">
-                <main-button/>
-                <main-button/>
-            </div>
-        </section>
+  <main>
+    <index-card />
+
+    <section v-if="showButtons" class="btn-container">
+      <main-button text="Richtig" colors="lightgreen" />
+      <main-button text="Falsch" colors="orange" />
+    </section>
+    <a v-if="showLink" href="#" @click.prevent="revealButtons">Aufdecken</a>
+    <p class="exit">Exit</p>
+  </main>
 </template>
 
 <script>
-import MainButton from '@/components/MainButton.vue';
+import MainButton from '@/components/MainButton.vue'
+import IndexCard from '@/components/IndexCard.vue'
+
 export default {
-    components: {
-        MainButton
+  components: {
+    MainButton,
+    IndexCard,
+  },
+  data() {
+    return {
+      showButtons: false,
+      showLink: true,
+      showExit: false,
     }
-};
+  },
+  methods: {
+    revealButtons() {
+      this.showButtons = true
+      this.showLink = false
+    },
+  },
+}
 </script>
 
 <style scoped>
- main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
+main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding-inline: 1rem;
+}
 
-  h1 {
-    font-size: 3rem;
-  }
-  
+.btn-container {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 550px;
+  display: flex;
+  justify-content: space-between;
+}
 
-  .card {
-    position: relative;
-    aspect-ratio: 10 / 7;
-    height: 400px;
-    perspective: 1000px;
-  }
-  
-  .card-inner {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.8s ease-in-out;
-    transform-style: preserve-3d;
-  }
-  
-  .card:hover .card-inner {
-    transform: rotateY(180deg);
-  }
-  
-  .card-front,
-  .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 5px;
-    margin: 0;
-    overflow: hidden;
-    transition: z-index 0s ease;
-  }
-  
-  .card-front {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--clr-lightblue);
-    border: 1px solid var(--clr-black);
-  }
-  
-  .card-back {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--clr-lightgreen);
-    color: var(--clr-black-09);
-    transform: rotateY(180deg);
-    z-index: 1;
-    box-sizing: border-box;
-    transition: z-index 0.8s ease;
-    border: 1px solid var(--clr-black);
-  }
-  
-  .card:hover .card-back {
-    z-index: 2;
-  }
-  
-  .card:hover .card-front {
-    z-index: 1;
-  }
+a {
+  text-decoration: none;
+  text-align: start;
+  color: var(--clr-green-dark);
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.5rem);
+  font-weight: 550;
+  width: 100%;
+  max-width: 550px;
+  margin-top: 3rem;
+  cursor: pointer;
+}
 
-  .hover-to-flip {
-    position: absolute;
-    top: -2rem;
-    color: var(--color-red);
-    font-weight: bold;
-  }
+a:hover {
+  opacity: 0.7;
+}
 
-  .card:hover .hover-to-flip {
-    visibility: hidden;
-  }
+.exit {
+  position: fixed;
+  bottom: calc(1.5rem + 2vw);
+  right: calc(1.5rem + 2vw);
 
-  .btn-container {
-    position: absolute;
-    bottom: -4rem;
-    width: 100%;
-    display: flex;
-    visibility: hidden;
-  }
+  cursor: pointer;
 
-  button {
-    padding: .75rem 2.25rem;
-    border-radius: .25rem;
-    border: none;
-    color: var(--clr-white);
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.5rem);
+  color: var(--clr-green-dark);
+}
 
-  .right {
-    background-color: var(--color-green);
+@media (min-width: 480px) {
+  main {
+    padding-inline: calc(2rem + 7vw);
   }
+}
 
-  .wrong {
-    background-color: var(--clr-light-red);
-    margin-left: auto;
+@media (min-width: 900px) {
+  a {
+    font-weight: 300;
   }
-
-  .card:hover .btn-container {
-    visibility: visible;
-  }
+}
 </style>
