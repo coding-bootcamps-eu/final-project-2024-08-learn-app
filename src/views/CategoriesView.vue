@@ -1,4 +1,6 @@
 <template>
+  <page-header class="page-header" headerText="Karteikarten" />
+  <page-header class="page-header" headerText="Wähle ein Kategorie oder erstelle eine eigene" />
   <div class="category-list">
     <div class="category-item" v-for="category in categories" :key="category.id">
       <span>{{ category.name }}</span>
@@ -12,7 +14,12 @@
 </template>
 
 <script>
+import PageHeader from '@/components/PageHeader.vue'
+
 export default {
+  components: {
+    PageHeader,
+  },
   name: 'CategoryList',
   data() {
     return {
