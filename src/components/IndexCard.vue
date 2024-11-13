@@ -1,7 +1,6 @@
 <template>
   <div :class="colors">
     <p :class="colors">{{ text }}</p>
-    <p :class="colors">test</p>
   </div>
 </template>
 
@@ -25,13 +24,10 @@ div {
   max-width: 550px;
   aspect-ratio:  10 / 7;
   border-radius: 5px;
-  background-color: var(--clr-white);
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   font-size: clamp(1rem, 1.5vw + 1rem, 1.5rem);
-  color: var(--clr-green-dark);
 }
 
 .white {
@@ -44,7 +40,7 @@ div {
   color: var(--clr-white);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   div {
     padding: 1.5rem;
     aspect-ratio: 10 / 5;

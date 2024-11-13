@@ -1,7 +1,7 @@
 <template>
   <main>
-    <page-header headerText="Testmodus"/>
-    <index-card />
+    <page-header class="page-header" headerText="Testmodus"/>
+    <index-card text="Wie heißt der Entwickler von vue.js?"/>
     <section v-if="showButtons" class="btn-container">
       <main-button text="Richtig" colors="lightgreen" />
       <main-button text="Falsch" colors="orange" />
@@ -49,6 +49,11 @@ main {
   padding-inline: 1rem;
 }
 
+.page-header {
+  visibility: hidden;
+  max-width: 550px;
+}
+
 .btn-container {
   margin-top: 2rem;
   width: 100%;
@@ -94,5 +99,9 @@ a:hover {
   a {
     font-weight: 300;
   }
+
+  .page-header {
+    visibility: visible;
+}
 }
 </style>
