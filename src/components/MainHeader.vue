@@ -2,7 +2,9 @@
   <header class="main__header" v-if="store.isLoggedIn">
     <!-- LOGO -->
     <div class="header__logo">
-      <img src="@/assets/Logo_Learnified.png" alt="Logo" />
+      <router-link to="/">
+        <img src="@/assets/Logo_Learnified.png" alt="Logo" />
+      </router-link>
     </div>
 
     <!-- MOBILE HAMBURGER BUTTON -->
