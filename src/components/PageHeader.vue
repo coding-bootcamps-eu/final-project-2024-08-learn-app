@@ -1,6 +1,6 @@
 <template>
   <header class="page-header">
-    <h2>{{ headerText }}</h2>
+    <h2>{{ headerText }}<br>{{ subheaderText }}</h2>
   </header>
 </template>
 
@@ -11,6 +11,10 @@ export default {
     headerText: {
       type: String,
       required: true
+    },
+    subheaderText: {
+      type: String,
+      required: true
     }
   }
 }
@@ -18,8 +22,8 @@ export default {
 
 <style scoped>
 .page-header {
-  width: 50%;
   margin-left: 3rem;
+  width: 50%;
 }
 
 .page-header h2 {
