@@ -66,7 +66,7 @@ export default {
     this.checkIfMobile()
     window.addEventListener('resize', this.checkIfMobile)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('resize', this.checkIfMobile)
   },
 }
