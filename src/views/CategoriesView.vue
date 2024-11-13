@@ -33,8 +33,13 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 25vw;
-  margin-left: 5rem;
+  width: 80vw;
+  margin: auto;
+  margin-top: 3rem;
+  background-color: rgb(239, 234, 234);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px lightgray;
 }
 
 .category-item {
@@ -61,5 +66,49 @@ export default {
 
 .actions a:hover {
   text-decoration: underline;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 25rem;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  background-color: rgb(239, 234, 234);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px lightgray;
+}
+}
+@media (min-width: 769px) and (max-width: 1279px) {
+  .category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 25rem;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  background-color: rgb(239, 234, 234);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px lightgray;
+}
+}
+
+@media (min-width: 1280px) {
+  .category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 25rem;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  background-color: rgb(239, 234, 234);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px lightgray;
+}
 }
 </style>
