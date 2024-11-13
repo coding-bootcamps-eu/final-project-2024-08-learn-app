@@ -1,4 +1,5 @@
 <template>
+  <PageHeader header-text="Login" />
   <form>
     <div class="form-group">
       <label for="username">Username</label>
@@ -8,10 +9,14 @@
       <label for="password">Password</label>
       <input v-model="password" id="password" type="text" />
     </div>
+    <MainButton :text="'Save'" />
   </form>
 </template>
 
 <script>
+import MainButton from '@/components/MainButton.vue'
+import PageHeader from '@/components/PageHeader.vue'
+
 export default {
   data() {
     return {
@@ -19,6 +24,7 @@ export default {
       password: '',
     }
   },
+  components: { MainButton, PageHeader },
 }
 </script>
 
@@ -26,7 +32,7 @@ export default {
 form {
   display: flex;
   flex-direction: column;
-  padding: 5%;
+  padding: 2rem;
   max-width: 400px;
   margin: auto;
 }
@@ -47,53 +53,73 @@ input {
 
 input,
 label {
-  margin: 0.1em 0;
+  margin: 0.2rem 0;
 }
 
 @media (max-width: 480px) {
   form {
-    padding: 1em;
+    padding: 1rem;
     padding-inline: 2rem;
   }
 
   input,
   label {
-    font-size: 0.9em;
+    font-size: 0.9rem;
+  }
+
+  button {
+    width: 50%;
+    align-self: flex-end;
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   form {
-    padding: 2em;
+    padding: 2rem;
   }
 
   input,
   label {
-    font-size: 1em;
+    font-size: 1rem;
+  }
+
+  button {
+    width: 50%;
+    align-self: flex-end;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1279px) {
   form {
-    padding: 2.5em;
+    padding: 2.5rem;
   }
 
   input,
   label {
-    font-size: 1.1em;
-    margin: 0.2em 0;
+    font-size: 1.1rem;
+    margin: 0.2rem 0;
+  }
+
+  button {
+    width: 50%;
+    align-self: flex-end;
   }
 }
 
 @media (min-width: 1280px) {
   form {
-    padding: 3em;
+    padding: 3rem;
   }
 
   input,
   label {
-    font-size: 1.2em;
-    margin: 0.3em 0;
+    font-size: 1.2rem;
+    margin: 0.3rem 0;
+  }
+
+  button {
+    width: 50%;
+    align-self: flex-end;
   }
 }
 </style>
