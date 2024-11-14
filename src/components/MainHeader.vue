@@ -157,7 +157,7 @@ export default {
     height: 50px;
   }
 
-  /* NAVIGATION HEADER */
+  /* NAVIGATION HEADERR */
   .header__nav {
     display: flex;
     gap: 2rem;
