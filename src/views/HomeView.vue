@@ -1,4 +1,5 @@
 <template>
+  <PageHeader :headerText="`Hallo ${userName}! 👋`" :subheaderText="'Was möchtest du tun?'" />
   <div class="home-view-wrapper">
     <section class="home-view-container">
       <section class="indexcards">
@@ -46,6 +47,7 @@
 </template>
 <script>
 import HomeViewCard from '@/components/HomeViewCard.vue'
+import PageHeader from '@/components/PageHeader.vue'
 
 export default {
   data() {
@@ -58,6 +60,7 @@ export default {
   },
   components: {
     HomeViewCard,
+    PageHeader,
   },
 }
 </script>
