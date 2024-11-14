@@ -80,6 +80,15 @@ export default {
 </script>
 
 <style scoped>
+/* SCHRIFTART */
+@font-face {
+  font-family: 'crew69';
+  src: url('@/src/assets/fonts/crew.69.ttf') format('ttf');
+  /*  url('@/assets/fonts/roboto.ttf') format('ttf'); */
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* ALLGEMEINER HEADER-STIL */
 .main__header {
   display: flex;
@@ -107,6 +116,7 @@ export default {
   font-size: 1.2rem;
   color: #fff;
   text-decoration: none;
+  font-family: 'crew69', sans-serif;
 }
 
 /* DESKTOP-ANSICHT LOGO, TITEL UND NAVIGATION */
@@ -129,6 +139,7 @@ export default {
   font-size: 1.5rem;
   color: #fff;
   text-decoration: none;
+  font-family: 'crew69', sans-serif;
 }
 
 /* LOGO FÜR DESKTOP */
@@ -218,5 +229,9 @@ export default {
   .header__hamburger {
     display: none;
   }
+}
+
+header.main__header {
+  margin-bottom: 3rem;
 }
 </style>
