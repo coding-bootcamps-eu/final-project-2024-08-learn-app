@@ -81,6 +81,7 @@ export default {
   padding: 1rem;
   background-color: var(--clr-green-dark);
   color: #fff;
+  margin-bottom: 3rem;
 }
 
 .header__logo img {
