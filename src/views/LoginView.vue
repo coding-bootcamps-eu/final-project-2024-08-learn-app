@@ -1,15 +1,18 @@
 <template>
-  <PageHeader header-text="Login" />
+  <PageHeader :headerText="'Du brauchst ein Profil, um die App zu benutzen'" />
   <form>
     <div class="form-group">
       <label for="username">Username</label>
       <input v-model="username" type="text" id="username" />
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="password">Passwort</label>
       <input v-model="password" id="password" type="text" />
     </div>
-    <MainButton :text="'Save'" />
+    <div class="button-class">
+      <a href="#">Passwort vergessen</a>
+      <MainButton :text="'Einloggen'" />
+    </div>
   </form>
 </template>
 
@@ -32,9 +35,9 @@ export default {
 form {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  max-width: 400px;
-  margin: auto;
+  margin-top: 3rem;
+  margin-left: 3rem;
+  max-width: 500px;
 }
 
 label {
@@ -51,75 +54,43 @@ input {
   flex-direction: column;
 }
 
-input,
-label {
-  margin: 0.2rem 0;
+.button-class {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+a {
+  color: var(--clr-green-dark);
+  text-decoration: none;
+  font-style: italic;
 }
 
 @media (max-width: 480px) {
-  form {
-    padding: 1rem;
-    padding-inline: 2rem;
-  }
-
   input,
   label {
     font-size: 0.9rem;
   }
-
-  button {
-    width: 50%;
-    align-self: flex-end;
-  }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-  form {
-    padding: 2rem;
-  }
-
   input,
   label {
     font-size: 1rem;
   }
-
-  button {
-    width: 50%;
-    align-self: flex-end;
-  }
 }
 
 @media (min-width: 769px) and (max-width: 1279px) {
-  form {
-    padding: 2.5rem;
-  }
-
   input,
   label {
     font-size: 1.1rem;
-    margin: 0.2rem 0;
-  }
-
-  button {
-    width: 50%;
-    align-self: flex-end;
   }
 }
 
 @media (min-width: 1280px) {
-  form {
-    padding: 3rem;
-  }
-
   input,
   label {
     font-size: 1.2rem;
-    margin: 0.3rem 0;
-  }
-
-  button {
-    width: 50%;
-    align-self: flex-end;
   }
 }
 </style>
