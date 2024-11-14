@@ -1,8 +1,8 @@
 <template>
   <page-header class="page-header" headerText="Karteikarten" subheaderText="Wähle ein Kategorie oder erstelle eine eigene"/>
   <div class="category-list">
-    <div class="category-item" v-for="category in categories" :key="category.id">
-      <span>{{ category.name }}</span>
+    <div class="category-item" v-for="category in store.categories" :key="category.id">
+      <span>{{ category.title }}</span>
       <div class="actions">
         <router-link to="/test">Testen</router-link>
         <span>|</span>
@@ -14,22 +14,20 @@
 
 <script>
 import PageHeader from '@/components/PageHeader.vue'
+import { useUsersStore } from '@/stores/users.js'
 
 export default {
   components: {
     PageHeader,
   },
-  name: 'CategoryList',
+  //name: 'CategoryList',
   data() {
     return {
-      categories: [
-        { id: 1, name: 'HTML & CSS' },
-        { id: 2, name: 'JavaScript' },
-        { id: 3, name: 'Web Apps' },
-        { id: 4, name: 'VueJS' },
-        { id: 5, name: 'Rest APIs' }
-      ]
+      store: useUsersStore(),
     };
+  },
+  created() {
+    this.store.fetchCategories()
   },
 }
 </script>
