@@ -219,4 +219,8 @@ export default {
     display: none;
   }
 }
+
+header.main__header {
+  margin-bottom: 3rem;
+}
 </style>
