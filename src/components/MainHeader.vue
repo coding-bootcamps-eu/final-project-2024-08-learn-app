@@ -122,7 +122,7 @@ export default {
 .header__logo-container {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Abstand zwischen Logo und Titel */
+  gap: 0.5rem;
 }
 
 .header__title-desktop {
@@ -205,7 +205,7 @@ export default {
     display: flex;
   }
 
-  /* Desktop Navigation */
+  /* DESKTOP NAVIGATION */
   .header__nav {
     display: flex;
     gap: 2rem;
@@ -213,7 +213,7 @@ export default {
     justify-content: flex-start;
   }
 
-  /* Mobile Navigation und Hamburger ausblenden */
+  /* MOBILE NAVIGATION UND HAMBURGER AUSGEBLENDET */
   .header__nav-mobile,
   .header__hamburger {
     display: none;
