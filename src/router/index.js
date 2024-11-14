@@ -6,6 +6,7 @@ import CategoriesView from '@/views/CategoriesView.vue'
 import LoginView from '@/views/LoginView.vue'
 import LearnView from '@/views/LearnView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import AddCardView from '@/views/AddCardView.vue'
 import QuizView from '@/views/QuizView.vue'
 
 const router = createRouter({
@@ -51,6 +52,11 @@ const router = createRouter({
       meta: {
         isPublic: true,
       },
+    },
+    {
+      path: '/addCard',
+      name: 'addCard',
+      component: AddCardView,
     },
   ],
 })
