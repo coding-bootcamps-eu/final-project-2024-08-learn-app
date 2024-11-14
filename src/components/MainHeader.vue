@@ -117,6 +117,9 @@ export default {
   color: #fff;
   text-decoration: none;
   font-family: 'crew69', sans-serif;
+  font-size: 180%;
+  letter-spacing: 5px;
+  text-shadow: 3px 3px 10px black;
 }
 
 /* DESKTOP-ANSICHT LOGO, TITEL UND NAVIGATION */
@@ -140,6 +143,9 @@ export default {
   color: #fff;
   text-decoration: none;
   font-family: 'crew69', sans-serif;
+  font-size: 225%;
+  letter-spacing: 5px;
+  text-shadow: 3px 3px 10px black;
 }
 
 /* LOGO FÜR DESKTOP */
