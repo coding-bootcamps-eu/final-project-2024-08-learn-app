@@ -1,6 +1,7 @@
 <template>
   <div :class="colors">
     <p :class="colors">{{ text }}</p>
+    <slot/>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ div {
   aspect-ratio:  10 / 7;
   border-radius: 5px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: clamp(1rem, 1.5vw + 1rem, 1.5rem);
@@ -43,7 +45,6 @@ div {
 @media (min-width: 768px) {
   div {
     padding: 1.5rem;
-    aspect-ratio: 10 / 5;
   }
 }
 

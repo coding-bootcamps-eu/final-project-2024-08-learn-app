@@ -7,6 +7,7 @@ import LoginView from '@/views/LoginView.vue'
 import LearnView from '@/views/LearnView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import AddCardView from '@/views/AddCardView.vue'
+import QuizView from '@/views/QuizView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,11 @@ const router = createRouter({
       path: '/learn',
       name: 'learn',
       component: LearnView,
+    },
+    {
+      path: '/quiz',
+      name: 'quiz',
+      component: QuizView,
     },
     {
       path: '/categories',

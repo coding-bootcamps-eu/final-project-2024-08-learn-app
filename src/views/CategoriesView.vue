@@ -4,9 +4,9 @@
     <div class="category-item" v-for="category in categories" :key="category.id">
       <span>{{ category.name }}</span>
       <div class="actions">
-        <a href="#">Testen</a>
+        <router-link to="/test">Testen</router-link>
         <span>|</span>
-        <a href="#">Lernen</a>
+        <router-link to="/learn">Lernen</router-link>
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@ export default {
   background-color: rgb(239, 234, 234);
   padding: 2rem;
   border-radius: 20px;
-  box-shadow: 10px 10px 30px lightgray;
+  box-shadow: 10px 10px 30px var(--clr-lightgray);
 }
 
 .category-item {

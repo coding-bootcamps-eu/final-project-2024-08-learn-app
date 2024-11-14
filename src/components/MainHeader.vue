@@ -1,10 +1,30 @@
 <template>
-  <header class="main__header" v-if="store.isLoggedIn">
-    <!-- LOGO -->
-    <div class="header__logo">
-      <router-link to="/">
+  <header class="main__header">
+    <!-- LOGO UND TITEL FÜR MOBILE ANSICHT -->
+    <div class="header__logo-title" v-if="isMobile">
+      <router-link to="/" class="header__logo">
         <img src="@/assets/Logo_Learnified.png" alt="Logo" />
       </router-link>
+      <router-link to="/" class="header__title">Learnified</router-link>
+    </div>
+
+    <!-- LOGO, TITEL UND NAVIGATION FÜR DESKTOP -->
+    <div class="header__desktop" v-else>
+      <!-- LOGO UND TITEL ZUSAMMEN FÜR DESKTOP -->
+      <div class="header__logo-container">
+        <router-link to="/" class="header__logo">
+          <img src="@/assets/Logo_Learnified.png" alt="Logo" />
+        </router-link>
+        <router-link to="/" class="header__title-desktop">Learnified</router-link>
+      </div>
+
+      <!-- NAVIGATION -->
+      <nav class="header__nav">
+        <router-link to="/categories" class="nav__item">Karteikarten</router-link>
+        <router-link to="/quiz" class="nav__item">Quizbox</router-link>
+        <router-link to="/profile" class="nav__item">Profil</router-link>
+        <button @click="logout" class="header__logout">Ausloggen</button>
+      </nav>
     </div>
 
     <!-- MOBILE HAMBURGER BUTTON -->
@@ -14,25 +34,12 @@
       <span class="hamburger-icon"></span>
     </button>
 
-    <!-- NAVIGATION -->
-    <nav class="header__nav" :class="{ 'nav--open': menuOpen }">
-      <router-link to="/" class="nav__item">Learnified</router-link>
+    <!-- MOBILE NAVIGATION -->
+    <nav class="header__nav-mobile" :class="{ 'nav--open': menuOpen }" v-if="isMobile">
       <router-link to="/categories" class="nav__item">Karteikarten</router-link>
       <router-link to="/quiz" class="nav__item">Quizbox</router-link>
       <router-link to="/profile" class="nav__item">Profil</router-link>
       <button @click="logout" class="header__logout">Ausloggen</button>
-    </nav>
-  </header>
-
-  <header class="main__header" v-else>
-    <!-- LOGO -->
-    <div class="header__logo">
-      <img src="@/assets/Logo_Learnified.png" alt="Logo" />
-    </div>
-
-    <!-- NAVIGATION -->
-    <nav class="header__nav" :class="{ 'nav--open': menuOpen }">
-      <button @click="logout" class="header__logout">Einloggen</button>
     </nav>
   </header>
 </template>
@@ -73,7 +80,7 @@ export default {
 </script>
 
 <style scoped>
-/* MOBILE ANSICHT */
+/* ALLGEMEINER HEADER-STIL */
 .main__header {
   display: flex;
   justify-content: space-between;
@@ -81,11 +88,52 @@ export default {
   padding: 1rem;
   background-color: var(--clr-green-dark);
   color: #fff;
-  margin-bottom: 3rem;
 }
 
-.header__logo img {
+/* LOGO UND TITEL FÜR MOBILE ANSICHT */
+.header__logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.header__logo-title .header__logo img {
   height: 40px;
+  margin-right: 0.5rem;
+}
+
+.header__title {
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* DESKTOP-ANSICHT LOGO, TITEL UND NAVIGATION */
+.header__desktop {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* LOGO UND TITEL ZUSAMMEN IN DER DESKTOP-ANSICHT */
+.header__logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header__title-desktop {
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* LOGO FÜR DESKTOP */
+.header__logo img {
+  height: 50px;
 }
 
 /* MOBILE HAMBURGER BUTTON */
@@ -107,8 +155,9 @@ export default {
   background-color: #fff;
 }
 
-/* NAVI-ELEMENTE */
-.header__nav {
+/* NAVIGATION ELEMENTE */
+.header__nav,
+.header__nav-mobile {
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -129,7 +178,7 @@ export default {
 }
 
 /* NAVIGATION MOBILE-ANSICHT */
-.header__nav {
+.header__nav-mobile {
   display: none;
   flex-direction: column;
   gap: 1rem;
@@ -141,43 +190,31 @@ export default {
   border-radius: 8px;
 }
 
-.header__nav.nav--open {
+.header__nav-mobile.nav--open {
   display: flex;
-  border: black solid 2px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75) !important;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
 }
 
 /* DESKTOP-STYLING AB 768px */
 @media (min-width: 768px) {
-  .main__header {
-    padding: 1rem 2rem;
-    justify-content: space-between;
-  }
-  .header__logo img {
-    height: 50px;
+  .header__logo-title {
+    display: none;
   }
 
-  /* NAVIGATION HEADER */
+  .header__logo-container {
+    display: flex;
+  }
+
+  /* DESKTOP NAVIGATION */
   .header__nav {
     display: flex;
     gap: 2rem;
     align-items: center;
-    position: relative;
-    flex-direction: row;
-    top: auto;
     justify-content: flex-start;
-
-    width: 100%;
   }
 
-  .header__logout {
-    display: flex;
-    position: absolute;
-    font-size: 1.1rem;
-    top: auto;
-    right: 1px;
-  }
-
+  /* MOBILE NAVIGATION UND HAMBURGER AUSGEBLENDET */
+  .header__nav-mobile,
   .header__hamburger {
     display: none;
   }
