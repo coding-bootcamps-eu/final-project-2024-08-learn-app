@@ -6,6 +6,7 @@ import CategoriesView from '@/views/CategoriesView.vue'
 import LoginView from '@/views/LoginView.vue'
 import LearnView from '@/views/LearnView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import AddCardView from '@/views/AddCardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       meta: {
         isPublic: true,
       },
+    },
+    {
+      path: '/addCard',
+      name: 'addCard',
+      component: AddCardView,
     },
   ],
 })
