@@ -4,9 +4,9 @@
     <div class="category-item" v-for="category in categories" :key="category.id">
       <span>{{ category.name }}</span>
       <div class="actions">
-        <a href="#">Testen</a>
+        <router-link to="/test">Testen</router-link>
         <span>|</span>
-        <a href="#">Lernen</a>
+        <router-link to="/learn">Lernen</router-link>
       </div>
     </div>
   </div>
