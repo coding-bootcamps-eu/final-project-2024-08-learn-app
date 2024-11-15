@@ -4,9 +4,9 @@
     <div class="category-item" v-for="category in store.categories" :key="category.id">
       <span>{{ category.title }}</span>
       <div class="actions">
-        <router-link to="/test">Testen</router-link>
+        <router-link :to="'/test/'+ category.id">Testen</router-link>
         <span>|</span>
-        <router-link to="/learn">Lernen</router-link>
+        <router-link :to="'/learn/'+ category.id">Lernen</router-link>
       </div>
     </div>
   </div>
@@ -20,7 +20,6 @@ export default {
   components: {
     PageHeader,
   },
-  //name: 'CategoryList',
   data() {
     return {
       store: useUsersStore(),
