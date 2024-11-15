@@ -94,7 +94,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 3rem;
+  padding: 1rem 4.5rem;
   background-color: var(--clr-green-dark);
   color: #fff;
 }
