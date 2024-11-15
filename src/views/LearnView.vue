@@ -2,25 +2,81 @@
   <main>
     <page-header class="page-header" headerText="Lernmodus" />
     <div class="card-container">
-      <index-card class="question-card" text="Wie heißt der Entwickler von vue.js?"/>
-      <index-card class="answer-card mt-1" colors="white" text="Evan You"/>
+      <index-card
+        v-if="firstCard"
+        class="question-card"
+        :text="firstCard.question"
+      />
+      <index-card
+        v-if="firstCard"
+        class="answer-card mt-1"
+        colors="white"
+        :text="firstCard.answer"
+      />
     </div>
     <div class="link-container mt-1">
-      <a>Zurück</a>
-      <a>Weiter</a>
+      <!-- 'Zurück'-Button bleibt im Layout sichtbar, aber unsichtbar durch 'visibility: hidden' -->
+      <a 
+        @click="previousCard"
+        :style="{ visibility: isAtStart ? 'hidden' : 'visible' }">
+        Zurück
+      </a>
+      
+      <!-- 'Weiter'-Button bleibt im Layout sichtbar, aber unsichtbar, wenn das Ende erreicht ist -->
+      <a 
+        @click="nextCard"
+        :style="{ visibility: isAtEnd ? 'hidden' : 'visible' }">
+        Weiter
+      </a>
     </div>
   </main>
 </template>
+
 <script>
 import IndexCard from '@/components/IndexCard.vue'
 import PageHeader from '@/components/PageHeader.vue'
+import { useUsersStore } from '@/stores/users.js'
 
 export default {
   components: {
     IndexCard,
     PageHeader,
   },
-}
+  data() {
+    return {
+      store: useUsersStore(),
+      currentCardIndex: 0,
+    };
+  },
+  computed: {
+    firstCard() {
+      // Zugriff auf die erste Karte in der Liste der Lernkarten
+      return this.store.learningCards[this.currentCardIndex] || null;
+    },
+    // Computed Properties um die Sichtbarkeit der 'Zurück' and 'Weiter' Buttons zu kontrollieren
+    isAtStart() {
+      return this.currentCardIndex === 0;
+    },
+    isAtEnd() {
+      return this.currentCardIndex === this.store.learningCards.length - 1;
+    }
+  },
+  methods: {
+    nextCard() {
+      if (!this.isAtEnd) {
+        this.currentCardIndex++;
+      }
+    },
+    previousCard() {
+      if (!this.isAtStart) {
+        this.currentCardIndex--;
+      }
+    },
+  },
+  created() {
+    this.store.fetchLearningCards();
+  },
+};
 </script>
 
 <style scoped>
@@ -30,7 +86,6 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   padding-inline: 1rem;
 }
 
@@ -63,6 +118,7 @@ a {
     display: block;
     min-width: 100%;
     padding-block: 2.5rem;
+    margin-left: 0;
   }
 
   .card-container {
@@ -85,18 +141,10 @@ a {
 }
 
 @media (min-width: 1160px) {
-  main {
-    margin-inline: 10rem;
-  }
 
   .card-container {
     justify-content: space-between;
   }
 }
 
-@media (min-width: 1600px) {
-  main {
-    margin-inline: 20rem;
-  }
-}
 </style>
