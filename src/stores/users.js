@@ -29,11 +29,11 @@ export const useUsersStore = defineStore('user', {
       }
     },
 
-    async fetchCategoriesWithCards() {
+    async fetchCategoryWithCards(id) {
       try {
-        const response = await fetch('http://localhost:3010/categories?_embed=cards')
+        const response = await fetch('http://localhost:3010/categories/'+id+'?_embed=cards')
         if (!response.ok) throw new Error('Fehler beim Laden der Kategorien mit Karten')
-        this.categories = await response.json()
+        return await response.json()
       } catch (error) {
         console.error(error)
       }
@@ -88,7 +88,7 @@ export const useUsersStore = defineStore('user', {
       }
     },
 
-    async fetchLearningCards() {
+    async fetchLearningCard() {
       try {
         const response = await fetch('http://localhost:3010/cards')
         if (!response.ok) throw new Error('Fehler beim Laden der Lernkarten')
