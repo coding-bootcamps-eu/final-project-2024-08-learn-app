@@ -148,6 +148,11 @@ export default {
   text-shadow: 3px 3px 10px black;
 }
 
+/* .header__title-desktop:hover {
+  color: rgb(21, 188, 221);
+  transition: 1s ease;
+} */
+
 /* LOGO FÜR DESKTOP */
 .header__logo img {
   height: 50px;
@@ -240,4 +245,56 @@ export default {
 header.main__header {
   margin-bottom: 3rem;
 }
+
+.nav__item {
+  font-size: 1.3rem;
+  letter-spacing: 5px;
+  font-weight: 900;
+  text-shadow: 3px 3px 10px black;
+}
+
+.header__logout {
+  font-size: 1.3rem;
+  letter-spacing: 5px;
+  font-weight: 900;
+  text-shadow: 3px 3px 10px black;
+}
+
+.header__logout:hover {
+  color: red;
+}
+
+/* .nav__item:hover {
+  color: #00c49a;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.nav__item {
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+  overflow: hidden;
+}
+
+.nav__item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background-color: white;
+  border-radius: 10px;
+  opacity: 50%;
+  transform: rotate(-15deg);
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.nav__item:hover::before {
+  left: 0;
+} */
 </style>
