@@ -1,53 +1,51 @@
 <template>
-  <PageHeader :headerText="`Hallo ${userName}! 👋`" :subheaderText="'Was möchtest du tun?'" />
+  <PageHeader class="page-header" :headerText="makeHeaderText" subheaderText="Was möchtest du tun?"/>
   <div class="home-view-wrapper">
-    <section class="home-view-container">
-      <section class="indexcards">
-        <HomeViewCard
-          :showRight="true"
-          :showLeft="true"
-          :cardText="this.text1"
-          class="index-card"
-          cardHeader="Karteikarten"
-          textLeft="Hinzufügen"
-          textRight="Kategorie wählen"
-        />
-        <div class="card-container">
-          <p class="last-used"><em> Zuletzt verwendet</em></p>
-          <div class="kartei-wrapper">
-            <p class="last-tag">JavaScript</p>
-            <RouterLink class="menu" :to="{ name: 'home' }">Lernen</RouterLink>
-            <RouterLink class="menu" :to="{ name: 'home' }">Testen</RouterLink>
-          </div>
-        </div>
-        <hr />
-      </section>
-
-      <section class="quizbox">
-        <HomeViewCard
-          :showRight="true"
-          :showLeft="false"
-          :cardText="this.text2"
-          class="quiz-card"
-          cardHeader="Quizbox"
-          textLeft=""
-          textRight="Quiz starten"
-        />
-        <div class="quiz-container">
-          <p class="last-used"><em>Zuletzt verwendet</em></p>
-          <div class="quiz-wrapper">
-            <p class="last-tag">JavaScript</p>
-            <p>1500 Punkte</p>
-            <RouterLink class="menu" :to="{ name: 'home' }">Testen</RouterLink>
-          </div>
-        </div>
-      </section>
-    </section>
+  <HomeViewCard
+    :showRight="true"
+    :showLeft="true"
+    :cardText="this.text1"
+    class="index-cards"
+    cardHeader="Karteikarten"
+    textLeft="Hinzufügen"
+    textRight="Kategorie wählen"
+    textFooterLeft="Lernen"
+    textFooterRight="Testen"
+    :targetLeft="this.addLink"
+    :targetRight="this.categoryLink"
+    :targetFooterLeft="this.learnLink"
+    :targetFooterRight="this.testLink"
+    :userPoints="this.userPoints"
+    :showUserPoints="false"
+    :showFooterLeft="true"
+  />
+  <HomeViewCard
+    :showRight="true"
+    :showLeft="false"
+    :cardText="this.text2"
+    class="quiz-box"
+    cardHeader="Quizbox"
+    textLeft="Hinzufügen"
+    textRight="Quiz starten"
+    textFooterLeft="Hinzufügen"
+    textFooterRight="Starten"
+    :targetLeft="this.quizLink"
+    :targetRight="this.quizLink"
+    :userPoints="this.userPoints"
+    :targetFooterLeft="this.quizLink"
+    :targetFooterRight="this.quizLink"
+    :showUserPoints="true"
+    :showFooterLeft="false"
+  />
+  <LeaderBoard class="leader-board" leaderBoardHeader="Brain Champs" />
   </div>
 </template>
 <script>
 import HomeViewCard from '@/components/HomeViewCard.vue'
-import PageHeader from '@/components/PageHeader.vue'
+import LeaderBoard from '@/components/LeaderBoard.vue'
+import PageHeader from '@/components/PageHeader.vue';
+
+import { useUsersStore } from '@/stores/users';
 
 export default {
   data() {
@@ -56,102 +54,90 @@ export default {
         'Lerne mit Karteikarten oder teste dich selber. Dir fehlen Fragen oder Themen? Dann füge sie einfach selber hinzu.',
       text2:
         'Starte ein Quiz, um dein Wissen zu testen. Wähle eine oder mehrere Kategorien und jage den Highscore.',
+      addLink: { name: 'addCard' },
+      categoryLink: { name: 'categories' },
+      quizLink: { name: 'quiz' },
+      learnLink: { name: 'home' },
+      testLink: { name: 'home' },
+      userPoints: '1500',
+      showUserPoints: false,
+      username:"King of Kotelett",
+      store: useUsersStore(),
     }
   },
   components: {
     HomeViewCard,
+    LeaderBoard,
     PageHeader,
   },
+  computed:{
+    makeHeaderText(){
+      return "Hallo " + this.store.currentUser.name + "! 👋";
+    }
+  }
 }
 </script>
 
 <style scoped>
-.home-view-wrapper {
-  height: 100vh;
-  display: flex;
+
+.page-header{
+  display:none;
+}
+.home-view-wrapper{
+  padding:0 5vw 5vw 5vw;
+  display:grid;
   justify-content: center;
-  align-items: center;
+  align-items:center;
+  grid-template-columns: 1fr;
+  grid-template-rows:auto auto auto;
+  grid-template-areas:"index" "quiz" "leader";
+  gap: 10vw;
 }
 
-.home-view-container {
-  display: flex;
-  flex-direction: column;
-  margin-inline: 1rem;
-  gap: 7%;
+.index-cards{
+grid-area: index;
 }
 
-.indexcards,
-.quizbox {
-  max-width: 370px;
-  min-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
-}
-.card-container {
-  margin: 2rem auto 2rem auto;
-  font-size: 1rem;
+.quiz-box{
+grid-area:quiz;
 }
 
-.quiz-card,
-.index-card {
-  color: white;
-  background-color: var(--clr-green-dark);
-}
-.quiz-container {
-  margin: 2rem auto 2rem auto;
-  font-size: 1rem;
+.leader-board{
+
+grid-area:leader;
 }
 
-.last-used {
-  font-size: 0.9rem;
-  color: grey;
+@media (min-width: 768px) and (max-width: 1000px){
+
+.home-view-wrapper{
+  padding:0;
+  padding-left:5rem;
+  padding-bottom: 2rem;
+  justify-content: start;
+  align-items: start;
+  grid-template-columns: 50% 45%;
+  grid-template-rows:50% 50%;
+  grid-template-areas:"index leader" "quiz leader";
+  gap:2vw;
 }
-.last-tag {
-  display: inline;
-}
-.menu {
-  color: var(--clr-green-dark);
 }
 
-.kartei-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+@media (min-width: 1001px) {
 
-.quiz-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-hr {
-  border-color: lightgray;
-  border-width: 1px;
-  width: 50%;
-  margin: auto;
-}
-
-@media (min-width: 768px) {
-  .home-view-container {
-    flex-direction: row;
+  .page-header{
+    display:block;
   }
-  .indexcards,
-  .quizbox {
-    min-width: 390px;
-    max-width: 400px;
-    aspect-ratio: 10/6;
-  }
-  .quiz-card,
-  .index-card {
-    background-color: white;
-    color: var(--clr-green-dark);
-  }
+.home-view-wrapper{
+  padding-top:2vw;
+  padding-left:5rem;
+  padding-right: 2vw;
+  justify-content: center;
+  align-items: start;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows:1fr;
+  grid-template-areas:"index quiz leader";
+  gap:5vw;
+}
 
-  hr {
-    display: none;
-  }
 }
 </style>
