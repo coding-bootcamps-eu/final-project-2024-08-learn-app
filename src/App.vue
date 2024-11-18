@@ -1,7 +1,12 @@
 <template>
-  <MainHeader />
-  <RouterView />
-  <AppFooter />
+  
+  <div>
+    <MainHeader />
+    <RouterView />
+    <AppFooter />
+  </div>
+  
+  
 </template>
 
 <script>
@@ -15,3 +20,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+div {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+</style>

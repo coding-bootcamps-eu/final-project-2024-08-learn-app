@@ -2,30 +2,33 @@
   <main>
     <page-header class="page-header" headerText="Lernmodus" />
     <div class="card-container">
-      <index-card
-        v-if="firstCard"
-        class="question-card"
-        :text="firstCard.question"
+      <!-- Frage wird dynamisch eingebunden -->
+      <index-card 
+        class="question-card" 
+        v-if="currentCard" 
+        :text="currentCard.question" 
       />
-      <index-card
-        v-if="firstCard"
-        class="answer-card mt-1"
-        colors="white"
-        :text="firstCard.answer"
+      <!-- Antwort wird dynamisch eingebunden -->
+      <index-card 
+        class="answer-card mt-1" 
+        v-if="currentCard" 
+        colors="white" 
+        :text="currentCard.answer" 
       />
     </div>
     <div class="link-container mt-1">
-      <!-- 'Zurück'-Button bleibt im Layout sichtbar, aber unsichtbar durch 'visibility: hidden' -->
+      <!-- Zurück-Button mit Steuerung -->
       <a 
-        @click="previousCard"
-        :style="{ visibility: isAtStart ? 'hidden' : 'visible' }">
+        @click="previousCard" 
+        :style="{ visibility: currentCardIndex === 0 ? 'hidden' : 'visible' }"
+      >
         Zurück
       </a>
-      
-      <!-- 'Weiter'-Button bleibt im Layout sichtbar, aber unsichtbar, wenn das Ende erreicht ist -->
+      <!-- Weiter-Button mit Steuerung -->
       <a 
-        @click="nextCard"
-        :style="{ visibility: isAtEnd ? 'hidden' : 'visible' }">
+        @click="nextCard" 
+        :style="{ visibility: currentCardIndex === cards.length - 1 ? 'hidden' : 'visible' }"
+      >
         Weiter
       </a>
     </div>
@@ -35,7 +38,7 @@
 <script>
 import IndexCard from '@/components/IndexCard.vue'
 import PageHeader from '@/components/PageHeader.vue'
-import { useUsersStore } from '@/stores/users.js'
+import { useUsersStore } from '@/stores/users'
 
 export default {
   components: {
@@ -45,36 +48,43 @@ export default {
   data() {
     return {
       store: useUsersStore(),
-      currentCardIndex: 0,
+      currentCategory: null,
+      currentCardIndex: 0, // Start bei der ersten Karte
     };
   },
   computed: {
-    firstCard() {
-      // Zugriff auf die erste Karte in der Liste der Lernkarten
-      return this.store.learningCards[this.currentCardIndex] || null;
+    // Aktuelle Kategorie-ID aus der Route
+    categoryId() {
+      return this.$route.params.id;
     },
-    // Computed Properties um die Sichtbarkeit der 'Zurück' and 'Weiter' Buttons zu kontrollieren
-    isAtStart() {
-      return this.currentCardIndex === 0;
+
+    // Karten der aktuellen Kategorie
+    cards() {
+      return this.currentCategory?.cards || [];
     },
-    isAtEnd() {
-      return this.currentCardIndex === this.store.learningCards.length - 1;
-    }
+
+    // Aktuelle Karte basierend auf currentCardIndex
+    currentCard() {
+      return this.cards[this.currentCardIndex] || null;
+    },
   },
   methods: {
+    // Nächste Karte
     nextCard() {
-      if (!this.isAtEnd) {
+      if (this.currentCardIndex < this.cards.length - 1) {
         this.currentCardIndex++;
       }
     },
+    // Vorherige Karte
     previousCard() {
-      if (!this.isAtStart) {
+      if (this.currentCardIndex > 0) {
         this.currentCardIndex--;
       }
     },
   },
-  created() {
-    this.store.fetchLearningCards();
+  async created() {
+    // Laden der Kategorie und ihrer Karten
+    this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId);
   },
 };
 </script>
@@ -84,14 +94,16 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: 1;
   align-items: center;
   justify-content: center;
-  padding-inline: 1rem;
+  padding-inline: 5rem;
 }
 
 .page-header {
   display: none;
   max-width: 550px;
+  margin-left: 0;
 }
 
 .card-container {
@@ -118,14 +130,14 @@ a {
     display: block;
     min-width: 100%;
     padding-block: 2.5rem;
-    margin-left: 0;
   }
 
   .card-container {
     flex-direction: row;
   }
 
-  .question-card, .answer-card {
+  .question-card,
+  .answer-card {
     transform: scaleY(1.2);
   }
 
@@ -141,10 +153,8 @@ a {
 }
 
 @media (min-width: 1160px) {
-
   .card-container {
     justify-content: space-between;
   }
 }
-
 </style>
