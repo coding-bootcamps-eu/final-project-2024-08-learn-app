@@ -1,9 +1,9 @@
 <template>
-  <div class="kontakt-container">
-    <header class="kontakt-header">
+  <div class="contakt-container">
+    <header class="contakt-header">
       <h1>Kontakt</h1>
     </header>
-    <main class="kontakt-content">
+    <main class="contakt-content">
       <section>
         <h2>Kontaktinformationen</h2>
         <p>Sie haben Fragen oder Anregungen? Kontaktieren Sie uns über die folgenden Kanäle:</p>
@@ -11,7 +11,7 @@
           <strong>Learnified</strong><br />
           Musterstraße 123<br />
           12345 Albertohausen<br />
-          E-Mail: <a href="mailto:info@learnified.de">info@learnified.com</a><br />
+          E-Mail: <a href="mailto:info@learnified.de">info@learnified.de</a><br />
           Telefon: +49 123 456789
         </address>
       </section>
@@ -78,26 +78,26 @@ export default {
 </script>
 
 <style scoped>
-.kontakt-container {
+.contakt-container {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
 }
 
-.kontakt-header h1 {
+.contakt-header h1 {
   color: var(--clr-green-dark);
   text-align: center;
   margin-bottom: 20px;
 }
 
-.kontakt-content h2 {
+.contakt-content h2 {
   margin-top: 20px;
   color: var(--clr-green);
 }
 
-.kontakt-content p,
-.kontakt-content ul {
+.contakt-content p,
+.contakt-content ul {
   line-height: 1.6;
 }
 
