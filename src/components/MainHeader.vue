@@ -63,7 +63,7 @@ export default {
       this.menuOpen = !this.menuOpen
     },
     checkIfMobile() {
-      this.isMobile = window.innerWidth < 768
+      this.isMobile = window.innerWidth < 1099
       if (!this.isMobile) {
         this.menuOpen = false
       }
@@ -217,8 +217,8 @@ export default {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
 }
 
-/* DESKTOP-STYLING AB 768px */
-@media (min-width: 768px) {
+/* DESKTOP-STYLING AB 1100px */
+@media (min-width: 1099px) {
   .header__logo-title {
     display: none;
   }
