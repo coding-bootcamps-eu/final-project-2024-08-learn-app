@@ -1,9 +1,9 @@
 <template>
-  <div class="contakt-container">
-    <header class="contakt-header">
+  <div class="contact-container">
+    <header class="contact-header">
       <h1>Kontakt</h1>
     </header>
-    <main class="contakt-content">
+    <main class="contact-content">
       <section>
         <h2>Kontaktinformationen</h2>
         <p>Sie haben Fragen oder Anregungen? Kontaktieren Sie uns über die folgenden Kanäle:</p>
@@ -78,26 +78,26 @@ export default {
 </script>
 
 <style scoped>
-.contakt-container {
+.contact-container {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
 }
 
-.contakt-header h1 {
+.contact-header h1 {
   color: var(--clr-green-dark);
   text-align: center;
   margin-bottom: 20px;
 }
 
-.contakt-content h2 {
+.contact-content h2 {
   margin-top: 20px;
   color: var(--clr-green);
 }
 
-.contakt-content p,
-.contakt-content ul {
+.contact-content p,
+.contact-content ul {
   line-height: 1.6;
 }
 
