@@ -6,7 +6,7 @@
         <p>{{ currentYear }} Learnified</p>
       </div>
       <nav>
-        <a href="/datenschutz">Datenschmutz</a>
+        <router-link to="/Datenschutz">Datenschmutz</router-link>
         <a href="/impressum">Impressum</a>
         <a href="/kontakt">Kontakt</a>
       </nav>
