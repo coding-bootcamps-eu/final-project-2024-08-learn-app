@@ -10,6 +10,7 @@ import AddCardView from '@/views/AddCardView.vue'
 import QuizView from '@/views/QuizView.vue'
 import Datenschutz from '@/views/Datenschutz.vue'
 import Contact from '@/views/Kontakt.vue'
+import Impressum from '@/views/impressum.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,6 +70,11 @@ const router = createRouter({
       path: '/kontakt',
       name: 'Kontakt',
       component: Contact,
+    },
+    {
+      path: '/impressum',
+      name: 'Impressum',
+      component: Impressum,
     },
   ],
 })

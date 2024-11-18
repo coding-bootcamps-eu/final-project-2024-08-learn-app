@@ -7,7 +7,7 @@
       </div>
       <nav>
         <router-link to="/Datenschutz">Datenschmutz</router-link>
-        <a href="/impressum">Impressum</a>
+        <router-link to="/impressum">Impressum</router-link>
         <router-link to="/kontakt">Kontakt</router-link>
       </nav>
     </div>
