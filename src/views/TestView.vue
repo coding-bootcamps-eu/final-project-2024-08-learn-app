@@ -63,7 +63,7 @@ export default {
       showButtons: false,
       showAnswer: false, // Zustand für die Antwortanzeige
       showLink: true, // Zustand für den Aufdecken-Button
-      delayBeforeNextCard: 600, // Verzögerung in Millisekunden 
+      delayBeforeNextCard: 600, // Verzögerung in Millisekunden
     };
   },
   computed: {
@@ -130,7 +130,7 @@ main {
   aspect-ratio: 10 / 7;
   height: 400px;
   perspective: 1000px;
-  margin-left: 3rem;
+  margin-left: 5rem;
 }
 
 .card-inner {
@@ -180,7 +180,7 @@ a:hover {
 }
 
 a {
-  margin-left: 3rem;
+  margin-left: 5rem;
   margin-top: 1rem;
 }
 

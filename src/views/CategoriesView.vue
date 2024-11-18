@@ -77,7 +77,7 @@ export default {
   flex-direction: column;
   gap: 1rem;
   width: 25rem;
-  margin-left: 3rem;
+  margin-left: 5rem;
   margin-top: 3rem;
   background-color: rgb(239, 234, 234);
   padding: 2rem;
@@ -91,7 +91,7 @@ export default {
   flex-direction: column;
   gap: 1rem;
   width: 25rem;
-  margin-left: 3rem;
+  margin-left: 5rem;
   margin-top: 3rem;
   background-color: rgb(239, 234, 234);
   padding: 2rem;
@@ -106,7 +106,7 @@ export default {
   flex-direction: column;
   gap: 1rem;
   width: 25rem;
-  margin-left: 3rem;
+  margin-left: 5rem;
   margin-top: 3rem;
   background-color: rgb(239, 234, 234);
   padding: 2rem;
