@@ -22,7 +22,7 @@ export default {
 
 <style scoped>
 .page-header {
-  margin-left: 3rem;
+  margin-left: 5rem;
   width: 50%;
 }
 
