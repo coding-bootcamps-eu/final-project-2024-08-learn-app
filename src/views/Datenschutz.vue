@@ -11,8 +11,8 @@
     <address>
       <strong>Learnified</strong><br />
       Musterstraße 123<br />
-      12345 Albertostraße<br />
-      E-Mail: info@learnified.com<br />
+      12345 Albertohausen<br />
+      E-Mail: info@learnified.de<br />
       Telefon: +49 123 456789
     </address>
 

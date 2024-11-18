@@ -9,6 +9,7 @@ import ProfileView from '@/views/ProfileView.vue'
 import AddCardView from '@/views/AddCardView.vue'
 import QuizView from '@/views/QuizView.vue'
 import Datenschutz from '@/views/Datenschutz.vue'
+import Kontakt from '@/views/Kontakt.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,6 +64,11 @@ const router = createRouter({
       path: '/datenschutz',
       name: 'Datenschutz',
       component: Datenschutz,
+    },
+    {
+      path: '/kontakt',
+      name: 'Kontakt',
+      component: Kontakt,
     },
   ],
 })
