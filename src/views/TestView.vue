@@ -15,7 +15,7 @@
         <!-- Rückseite mit der Antwort -->
         <index-card
           class="card-back"
-          :text="currentCard?.answer || 'Loading...'"
+          :text="currentCard?.answers[currentCard?.rightAnswer] || 'Loading...'"
           :colors="showAnswer ? 'white' : 'green'"
         />
       </section>
@@ -84,6 +84,7 @@ export default {
       console.error("Fehler beim Laden der Kategorie:", error);
     }
   },
+
   methods: {
     revealAnswer() {
       this.showAnswer = true; // Zeigt die Rückseite der Karte

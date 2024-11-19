@@ -1,65 +1,88 @@
 <template>
-    <main>
-      <page-header class="page-header" headerText="Quizmodus"/>
-      <index-card class="index-card" text="Wie heißt der Entwickler von vue.js?">
-        <quiz-card/>
-      </index-card>
-      <p class="exit">Exit</p>
-    </main>
-  </template>
+  <main>
+    <page-header class="page-header" headerText="Quizmodus" />
+    <index-card v-if="currentQuestion" class="index-card" :text="currentQuestion.question">
+      <quiz-card
+        :answers="currentQuestion.answers"
+        :rightAnswer="currentQuestion.answers[currentQuestion.rightAnswer]"
+      />
+    </index-card>
+    <p v-if="!currentQuestion" class="loading">Lade Frage...</p>
+    <router-link :to="'/'" class="exit">Exit</router-link>
+  </main>
+</template>
 
-  <script>
-  import IndexCard from '@/components/IndexCard.vue';
-  import PageHeader from '@/components/PageHeader.vue';
-  import QuizCard from '@/components/QuizCard.vue';
+<script>
+import IndexCard from '@/components/IndexCard.vue'
+import PageHeader from '@/components/PageHeader.vue'
+import QuizCard from '@/components/QuizCard.vue'
+import { useUsersStore } from '@/stores/users'
 
-  export default {
-    components: {
-      IndexCard,
-      PageHeader,
-      QuizCard,
-    },
-    data() {
-      return {
-        showExit: false,
+export default {
+  components: {
+    IndexCard,
+    PageHeader,
+    QuizCard,
+  },
+  data() {
+    return {
+      store: useUsersStore(),
+      currentQuestion: null, // Die aktuell angezeigte Frage
+    }
+  },
+  mounted() {
+    this.loadCategoryQuestions(48261793) // ID der Kategorie
+  },
+  methods: {
+    async loadCategoryQuestions(categoryId) {
+      const categoryWithCards = await this.store.fetchCategoryWithCards(categoryId)
+      if (categoryWithCards && categoryWithCards.cards.length > 0) {
+        this.currentQuestion = categoryWithCards.cards[0] // Erste Frage
       }
     },
-  }
-  </script>
+  },
+}
+</script>
 
-  <style scoped>
-  main {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    padding-inline: 1rem;
-  }
+<style scoped>
+main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  padding-inline: 1rem;
+}
 
-  .index-card {
-    align-items: flex-start;
-  }
+.index-card {
+  align-items: flex-start;
+}
 
+.page-header {
+  display: none;
+  max-width: 550px;
+}
+
+.exit {
+  position: fixed;
+  bottom: calc(1.5rem + 2vw);
+  right: calc(1.5rem + 2vw);
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.5rem);
+  color: var(--clr-green-dark);
+}
+
+.exit:hover {
+  color: var(--clr-red);
+}
+
+@media (min-width: 768px) {
   .page-header {
-    display: none;
-    max-width: 550px;
-  }
-
-  .exit {
-    position: fixed;
-    bottom: calc(1.5rem + 2vw);
-    right: calc(1.5rem + 2vw);
-
-    cursor: pointer;
-
-    font-size: clamp(1rem, 1vw + 0.5rem, 1.5rem);
-    color: var(--clr-green-dark);
-  }
-
-  @media (min-width: 768px) {
-    .page-header {
-      display: block;
+    display: block;
   }
   .index-card {
     margin-left: 5rem;
@@ -67,7 +90,7 @@
   }
 
   a {
-      font-weight: 300;
-    }
+    font-weight: 300;
   }
-  </style>
+}
+</style>

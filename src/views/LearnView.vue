@@ -13,7 +13,7 @@
         class="answer-card mt-1" 
         v-if="currentCard" 
         colors="white" 
-        :text="currentCard.answer" 
+        :text="currentCard?.answers[currentCard?.rightAnswer]"
       />
     </div>
     <div class="link-container mt-1">
@@ -84,7 +84,9 @@ export default {
   },
   async created() {
     // Laden der Kategorie und ihrer Karten
+    
     this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId);
+    console.log(this.currentCategory)
   },
 };
 </script>
