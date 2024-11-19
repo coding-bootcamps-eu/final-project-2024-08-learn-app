@@ -93,7 +93,7 @@ export default {
 
 .contact-content h2 {
   margin-top: 20px;
-  color: var(--clr-green);
+  color: var(--clr-green-dark);
 }
 
 .contact-content p,
@@ -143,6 +143,6 @@ textarea {
 }
 
 .submit-button:hover {
-  background-color: var(--clr-green);
+  background-color: var(--clr-green-dark);
 }
 </style>
