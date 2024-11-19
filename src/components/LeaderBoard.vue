@@ -1,147 +1,158 @@
 <template>
-  <div class="board-container" >
-  <section class="leader-board-wrapper">
-    <h1 class="leader-header">{{ leaderBoardHeader }}</h1>
-    <table>
-      <thead>
-        <tr></tr>
-      </thead>
-      <tbody>
-        <tr v-for="(leader, index) in boardLeaders" :key="leader.name">
-          <td v-if="index === 0" class="tab-num one">🧠🥇</td>
-          <td v-if="index === 0" class="tab-name one">{{ leader.name }}</td>
-          <td v-if="index === 0" class="tab-points one">{{ leader.punkte }}</td>
-          <td v-if="index === 1" class="tab-num two">🧠🥈</td>
-          <td v-if="index === 1" class="tab-name two">{{ leader.name }}</td>
-          <td v-if="index === 1" class="tab-points two">{{ leader.punkte }}</td>
-          <td v-if="index === 2" class="tab-num three">🧠🥉</td>
-          <td v-if="index === 2" class="tab-name three">{{ leader.name }}</td>
-          <td v-if="index === 2" class="tab-points three">{{ leader.punkte }}</td>
-          <td v-if="index > 2" class="tab-num">{{ index + 1 }}. Platz</td>
-          <td v-if="index > 2" class="tab-name">{{ leader.name }}</td>
-          <td v-if="index > 2" class="tab-points">{{ leader.punkte }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <h1></h1>
-  </section>
+  <div class="board-container">
+    <section class="leader-board-wrapper">
+      <h1 class="leader-header">{{ leaderBoardHeader }}</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Platz</th>
+            <th>Name</th>
+            <th>Punkte</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(leader, index) in boardLeaders"
+            :key="leader.name"
+            :class="{ top1: index === 0, top2: index === 1, top3: index === 2 }"
+          >
+            <td class="tab-num">
+              <span v-if="index === 0">🥇</span>
+              <span v-else-if="index === 1">🥈</span>
+              <span v-else-if="index === 2">🥉</span>
+              <span v-else>{{ index + 1 }}</span>
+            </td>
+            <td class="tab-name">{{ leader.name }}</td>
+            <td class="tab-points">{{ leader.punkte }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 </template>
-
-
-<style>
-.board-container{
-  container-type:inline-size;
-}
-
-.leader-board-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--clr-green-dark);
-  background-color: rgb(245, 245, 245);
-  border: 3px solid var(--clr-green-dark);
-  padding: 3cqw;
-  /* margin: 0 2vw 3vw 2vw; */
-}
-
-.leader-header {
-  font-size: calc(1rem + (160 - 1) * ((100cqw - 200px) / (2000 - 200)));
-  text-shadow: .5cqw .5cqw .5cqw gray;
-  font-weight: 600;
-  align-self: flex-start;
-}
-
-table {
-  table-layout:fixed;
-  font-size: calc(0.5rem + (88 - 0.5) * ((100cqw - 200px) / (2000 - 200)));
-  border-spacing: 5cqw 4cqw;
-}
-
-.one,
-.two,
-.three {
-  text-shadow:
-    .7cqw .7cqw .5cqw gray,
-    -0.1cqw -0.1cqw black,
-    0.1cqw 0.1cqw black;
-  font-weight: 800;
-}
-
-.one {
-  color: gold;
-}
-
-.two {
-  color: silver;
-}
-
-.three {
-  color: brown;
-}
-
-.tab-name {
-  width:48cqw;
-  text-align: left;
-}
-
-.tab-points {
-  text-align: right;
-}
-
-
-.tab-num {
-  width: 19cqw;
-  text-align: right;
-}
-
-@media (max-width: 480px) {
-  .leader-board-wrapper {
-    color: white;
-    background-color: var(--clr-green-dark);
-  }
-
-  .leader-header{
-    text-shadow: none;
-  }
-.three{
-  color:burlywood;
-}
-  .one,
-  .two,
-  .three {
-    text-shadow: none;
-    font-weight: 600;
-  }
-}
-</style>
 
 <script>
 export default {
   data() {
     return {
       boardLeaders: [
-        { name: 'King of Kotelett🥩', punkte: '1000' },
-        { name: 'Herbert Maier', punkte: '940' },
-        { name: 'Herbert Mayer', punkte: '900' },
-        { name: 'Elfriede Schmidt', punkte: '890' },
-        { name: 'Siegfried Maier', punkte: '750' },
-        { name: 'Kevin Schmidt', punkte: '750' },
-        { name: 'Peter Maffel', punkte: '700' },
-        { name: 'Marianne Rosenzwerg', punkte: '600' },
-        { name: 'Maria Hellweg', punkte: '500' },
-        { name: 'Margot Hohenegger', punkte: '400' },
+        { name: 'King of Kotelett🥩', punkte: 1000 },
+        { name: 'Herbert Maier', punkte: 940 },
+        { name: 'Herbert Mayer', punkte: 900 },
+        { name: 'Elfriede Schmidt', punkte: 890 },
+        { name: 'Siegfried Maier', punkte: 750 },
+        { name: 'Kevin Schmidt', punkte: 750 },
+        { name: 'Peter Maffel', punkte: 700 },
+        { name: 'Marianne Rosenzwerg', punkte: 600 },
+        { name: 'Maria Hellweg', punkte: 500 },
+        { name: 'Margot Hohenegger', punkte: 400 },
       ],
     }
   },
   props: {
     leaderBoardHeader: {
       type: String,
-    },
-
-    targetLeft: {
-      type: String,
+      default: 'Leaderboard',
     },
   },
 }
 </script>
+
+<style scoped>
+.board-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.leader-board-wrapper {
+  width: 100%;
+  max-width: 800px;
+  background-color: #f7f9fc;
+  border: 3px solid var(--clr-green-dark);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.leader-header {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--clr-green-dark);
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: center;
+  font-size: 1rem;
+  padding: 10px;
+  background-color: var(--clr-green-dark);
+  color: white;
+}
+
+tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+  background-color: rgba(0, 128, 0, 0.1);
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr td {
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tab-num {
+  text-align: center;
+  font-weight: bold;
+}
+
+.tab-name {
+  text-align: center;
+}
+
+.tab-points {
+  text-align: center;
+  font-weight: bold;
+}
+
+.top1 .tab-name {
+  font-weight: bold;
+  color: gold;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.top2 .tab-name {
+  font-weight: bold;
+  color: silver;
+}
+
+.top3 .tab-name {
+  font-weight: bold;
+  color: brown;
+}
+
+/* MOBIL SIZE */
+@media (max-width: 480px) {
+  table {
+    font-size: 0.8rem;
+  }
+
+  .leader-header {
+    font-size: 1.2rem;
+  }
+}
+</style>
