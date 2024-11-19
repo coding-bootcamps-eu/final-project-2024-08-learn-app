@@ -8,7 +8,7 @@
         <span>|</span>
         <router-link :to="'/learn/'+ category.id">Lernen</router-link>
         <span>|</span>
-        <router-link :to="'/quiz'">Quiz</router-link>
+        <router-link :to="'/quiz/'+ category.id">Quiz</router-link>
         <span>|</span>
         <router-link :to="'/addCard'">Add Cards</router-link>
       </div>

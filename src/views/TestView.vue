@@ -91,7 +91,7 @@ export default {
       this.showButtons = true; // Zeigt die Buttons
       this.showLink = false; // Versteckt den Aufdecken-Button
     },
-    submitAnswer(isCorrect) {
+    submitAnswer() {
       // Dreht die Karte zurück
       this.showAnswer = false;
 
@@ -109,9 +109,6 @@ export default {
     resetCard() {
       this.showButtons = false;
       this.showLink = true; // Zeigt den Aufdecken-Button wieder an
-    },
-    exitTest() {
-      this.$router.push('/');
     },
   },
 };
