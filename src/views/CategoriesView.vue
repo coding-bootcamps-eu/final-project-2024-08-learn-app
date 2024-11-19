@@ -7,6 +7,10 @@
         <router-link :to="'/test/'+ category.id">Testen</router-link>
         <span>|</span>
         <router-link :to="'/learn/'+ category.id">Lernen</router-link>
+        <span>|</span>
+        <router-link :to="'/quiz'">Quiz</router-link>
+        <span>|</span>
+        <router-link :to="'/addCard'">Add Cards</router-link>
       </div>
     </div>
   </div>
@@ -36,7 +40,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 80vw;
+  width: 90vw;
   margin: auto;
   margin-top: 3rem;
   background-color: rgb(239, 234, 234);
@@ -76,7 +80,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 25rem;
+  width: 30rem;
   margin-left: 5rem;
   margin-top: 3rem;
   background-color: rgb(239, 234, 234);
@@ -90,7 +94,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 25rem;
+  width: 30rem;
   margin-left: 5rem;
   margin-top: 3rem;
   background-color: rgb(239, 234, 234);
@@ -105,7 +109,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 25rem;
+  width: 30rem;
   margin-left: 5rem;
   margin-top: 3rem;
   background-color: rgb(239, 234, 234);
