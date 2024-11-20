@@ -31,7 +31,7 @@ const router = createRouter({
       component: LearnView,
     },
     {
-      path: '/quiz/:id',
+      path: '/quiz',
       name: 'quiz',
       component: QuizView,
     },
