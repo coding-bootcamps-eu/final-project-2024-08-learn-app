@@ -55,7 +55,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
   padding-inline: 1rem;
 }
 
