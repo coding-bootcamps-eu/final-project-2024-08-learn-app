@@ -30,8 +30,13 @@ export default {
       currentQuestion: null, // Die aktuell angezeigte Frage
     }
   },
+  computed: {
+    categoryId() {
+      return this.$route.params.id;
+    },
+  },
   mounted() {
-    this.loadCategoryQuestions(48261793) // ID der Kategorie
+    this.loadCategoryQuestions(this.$route.params.id) // ID der Kategorie
   },
   methods: {
     async loadCategoryQuestions(categoryId) {
