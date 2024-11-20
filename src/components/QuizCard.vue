@@ -6,15 +6,33 @@
         :key="index"
         :class="{ correct: isCorrect(index), wrong: isWrong(index) }"
       >
-        <input type="radio" :id="'answer' + index" name="answer" v-model="selectedAnswer" :value="index" />
-
+        <input
+          type="radio"
+          :id="'answer' + index"
+          name="answer"
+          v-model="selectedAnswer"
+          :value="index"
+        />
         <label :for="'answer' + index">{{ answer }}</label>
       </li>
     </ul>
     <div class="result-check-container">
-      <button @click="submitAnswer" :disabled="selectedAnswer === null" class="submit-button">
+      <!-- Bedingung für den Button -->
+      <button
+        v-if="!answered"
+        @click="submitAnswer"
+        :disabled="selectedAnswer === null"
+        class="submit-button"
+      >
         Antwort überprüfen
       </button>
+      <button v-if="!isLastQuestion && answered" @click="$emit('next')" class="next-button">
+        Weiter
+      </button>
+      <p v-if="isLastQuestion && answered" class="final-message">
+        Du hast alle Fragen beantwortet!
+      </p>
+
       <p
         v-if="answered"
         :class="{ result: true, correct: isAnswerCorrect, wrong: !isAnswerCorrect }"
@@ -36,6 +54,10 @@ export default {
       type: Number,
       required: true,
     },
+    isLastQuestion: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
@@ -44,23 +66,37 @@ export default {
     }
   },
   computed: {
-  isAnswerCorrect() {
-    return this.answers[this.selectedAnswer] === this.rightAnswer; 
+    isAnswerCorrect() {
+      return this.selectedAnswer === this.rightAnswer
+    },
   },
-},
-
-methods: {
-  submitAnswer() {
-    this.answered = true;
+  watch: {
+    answers() {
+      this.resetState()
+    },
+    rightAnswer() {
+      this.resetState()
+    },
   },
-  isCorrect(index) {
-    return this.answered && index === this.rightAnswer; 
+  methods: {
+    submitAnswer() {
+      this.answered = true
+    },
+    nextQuestion() {
+      this.$emit('next')
+    },
+    isCorrect(index) {
+      return this.answered && index === this.rightAnswer
+    },
+    isWrong(index) {
+      return this.answered && index === this.selectedAnswer && index !== this.rightAnswer
+    },
+    resetState() {
+      // Zurücksetzen der Antwort und des Status
+      this.selectedAnswer = null
+      this.answered = false
+    },
   },
-  isWrong(index) {
-    return this.answered && index === this.selectedAnswer && index !== this.rightAnswer; 
-  },
-},
-
 }
 </script>
 
@@ -116,7 +152,7 @@ input[type='radio']:checked {
 
 .result-check-container {
   display: flex;
-  padding: .75rem 1rem;
+  padding: 0.75rem 1rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -147,7 +183,25 @@ input[type='radio']:checked {
 }
 
 .result {
-  margin-top: 1rem;
   font-size: 1.2rem;
+}
+
+.next-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--clr-blue);
+  color: var(--clr-white);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.next-button:hover {
+  background-color: var(--clr-blue-light);
+}
+
+.final-message {
+  color: var(--clr-lightgray);
+  font-size: 1rem;
 }
 </style>

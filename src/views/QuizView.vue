@@ -1,13 +1,20 @@
 <template>
   <main>
     <page-header class="page-header" headerText="Quizmodus" />
-    <index-card v-if="currentQuestion" class="index-card" :text="currentQuestion.question">
-      <quiz-card
-        :answers="currentQuestion.answers"
-        :rightAnswer="currentQuestion.answers[currentQuestion.rightAnswer]"
-      />
-    </index-card>
-    <p v-if="!currentQuestion" class="loading">Lade Frage...</p>
+    <index-card
+  v-if="questions.length > 0 && questions[currentIndex]"
+  class="index-card"
+  :text="questions[currentIndex].question"
+>
+<quiz-card
+  :answers="questions[currentIndex].answers"
+  :rightAnswer="questions[currentIndex].rightAnswer"
+  :isLastQuestion="currentIndex === questions.length - 1"
+  @next="nextQuestion"
+/>
+</index-card>
+<p v-if="questions.length === 0" class="loading">Lade Frage...</p>
+
     <router-link :to="'/'" class="exit">Exit</router-link>
   </main>
 </template>
@@ -25,26 +32,36 @@ export default {
     QuizCard,
   },
   data() {
-    return {
-      store: useUsersStore(),
-      currentQuestion: null, // Die aktuell angezeigte Frage
-    }
-  },
+  return {
+    store: useUsersStore(),
+    questions: [], 
+    currentIndex: 0, 
+  };
+},
   computed: {
     categoryId() {
       return this.$route.params.id;
     },
   },
   mounted() {
-    this.loadCategoryQuestions(this.$route.params.id) // ID der Kategorie
-  },
+  this.loadCategoryQuestions(this.categoryId);
+},
   methods: {
     async loadCategoryQuestions(categoryId) {
-      const categoryWithCards = await this.store.fetchCategoryWithCards(categoryId)
-      if (categoryWithCards && categoryWithCards.cards.length > 0) {
-        this.currentQuestion = categoryWithCards.cards[0] // Erste Frage
-      }
-    },
+    const categoryWithCards = await this.store.fetchCategoryWithCards(categoryId);
+    if (categoryWithCards && categoryWithCards.cards.length > 0) {
+      this.questions = categoryWithCards.cards;
+      this.currentIndex = 0;
+    }
+  },
+  nextQuestion() {
+    if (this.currentIndex < this.questions.length - 1) {
+      this.currentIndex++;
+    } else {
+      console.log("Alle Fragen beantwortet");
+      // Optionale Logik: Navigation zurück zur Hauptseite oder Abschlussmeldung
+    }
+  },
   },
 }
 </script>
@@ -55,7 +72,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
   padding-inline: 1rem;
 }
 
