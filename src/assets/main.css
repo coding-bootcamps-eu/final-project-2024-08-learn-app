@@ -18,6 +18,8 @@
 
 :root {
     --clr-black: black;
+    --clr-blue: rgb(11, 94, 215);
+    --clr-blue-light: rgb(13, 111, 255);
     --clr-brown:#795c5f;
     --clr-green-dark:#156064;
     --clr-green-light:#00c49a;
