@@ -21,7 +21,6 @@
       <!-- NAVIGATION -->
       <nav class="header__nav">
         <router-link to="/categories" class="nav__item">Karteikarten</router-link>
-        <router-link to="/quiz" class="nav__item">Quizbox</router-link>
         <router-link to="/profile" class="nav__item">Profil</router-link>
         <button @click="logout" class="header__logout">Ausloggen</button>
       </nav>
@@ -37,7 +36,6 @@
     <!-- MOBILE NAVIGATION -->
     <nav class="header__nav-mobile" :class="{ 'nav--open': menuOpen }" v-if="isMobile">
       <router-link to="/categories" class="nav__item">Karteikarten</router-link>
-      <router-link to="/quiz" class="nav__item">Quizbox</router-link>
       <router-link to="/profile" class="nav__item">Profil</router-link>
       <button @click="logout" class="header__logout">Ausloggen</button>
     </nav>

@@ -56,7 +56,6 @@ export default {
         'Starte ein Quiz, um dein Wissen zu testen. Wähle eine oder mehrere Kategorien und jage den Highscore.',
       addLink: { name: 'addCard' },
       categoryLink: { name: 'categories' },
-      quizLink: { name: 'quiz' },
       learnLink: { name: 'home' },
       testLink: { name: 'home' },
       userPoints: '1500',
