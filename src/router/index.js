@@ -11,6 +11,7 @@ import QuizView from '@/views/QuizView.vue'
 import Datenschutz from '@/views/Datenschutz.vue'
 import Contact from '@/views/Kontakt.vue'
 import Impressum from '@/views/impressum.vue'
+import RegisterView from '@/views/RegisterView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,12 +50,17 @@ const router = createRouter({
       },
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: ProfileView,
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
       meta: {
         isPublic: true,
       },
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
     },
     {
       path: '/addcard/:id',

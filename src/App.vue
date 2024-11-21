@@ -11,11 +11,16 @@
 <script>
 import MainHeader from './components/MainHeader.vue'
 import AppFooter from './components/Footer.vue'
+import { useUsersStore } from './stores/users'
 
 export default {
   components: {
     MainHeader,
     AppFooter,
+  },
+  created() {
+    const userStore = useUsersStore()
+    userStore.initializeUser()
   },
 }
 </script>

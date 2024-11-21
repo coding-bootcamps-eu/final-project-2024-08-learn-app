@@ -20,9 +20,13 @@
 
       <!-- NAVIGATION -->
       <nav class="header__nav">
-        <router-link to="/categories" class="nav__item">Karteikarten</router-link>
-        <router-link to="/profile" class="nav__item">Profil</router-link>
-        <button @click="logout" class="header__logout">Ausloggen</button>
+        <router-link v-if="isLoggedIn" to="/categories" class="nav__item">Karteikarten</router-link>
+
+        <router-link v-if="isLoggedIn" to="/profile" class="nav__item">Profil</router-link>
+        <button v-if="isLoggedIn" @click="logout" class="header__logout">Ausloggen</button>
+        <router-link v-else to="/login">
+          <button class="header__logout">Einloggen</button>
+        </router-link>
       </nav>
     </div>
 
@@ -35,9 +39,13 @@
 
     <!-- MOBILE NAVIGATION -->
     <nav class="header__nav-mobile" :class="{ 'nav--open': menuOpen }" v-if="isMobile">
-      <router-link to="/categories" class="nav__item">Karteikarten</router-link>
-      <router-link to="/profile" class="nav__item">Profil</router-link>
-      <button @click="logout" class="header__logout">Ausloggen</button>
+      <router-link v-if="isLoggedIn" to="/categories" class="nav__item">Karteikarten</router-link>
+
+      <router-link v-if="isLoggedIn" to="/profile" class="nav__item">Profil</router-link>
+      <button v-if="isLoggedIn" @click="logout" class="header__logout">Ausloggen</button>
+      <router-link v-else to="/login">
+        <button class="header__logout">Einloggen</button>
+      </router-link>
     </nav>
   </header>
 </template>
@@ -53,9 +61,14 @@ export default {
       store: useUsersStore(),
     }
   },
+  computed: {
+    isLoggedIn() {
+      return this.store.isLoggedIn
+    },
+  },
   methods: {
     logout() {
-      console.log('User ausgeloggt')
+      this.store.logout()
     },
     toggleMenu() {
       this.menuOpen = !this.menuOpen
