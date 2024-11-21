@@ -57,8 +57,8 @@ const router = createRouter({
       },
     },
     {
-      path: '/addCard',
-      name: 'addCard',
+      path: '/addcard/:id',
+      name: 'addcard',
       component: AddCardView,
     },
     {

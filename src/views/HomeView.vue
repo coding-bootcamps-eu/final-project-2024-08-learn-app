@@ -54,7 +54,7 @@ export default {
         'Lerne mit Karteikarten oder teste dich selber. Dir fehlen Fragen oder Themen? Dann füge sie einfach selber hinzu.',
       text2:
         'Starte ein Quiz, um dein Wissen zu testen. Wähle eine oder mehrere Kategorien und jage den Highscore.',
-      addLink: { name: 'addCard' },
+      addLink: { name: 'home' },
       categoryLink: { name: 'categories' },
       learnLink: { name: 'home' },
       testLink: { name: 'home' },
