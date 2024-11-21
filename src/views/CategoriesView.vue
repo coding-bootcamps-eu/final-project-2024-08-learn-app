@@ -10,7 +10,7 @@
         <span>|</span>
         <router-link :to="'/quiz/'+ category.id">Quiz</router-link>
         <span>|</span>
-        <router-link :to="'/addCard'">Add Cards</router-link>
+        <router-link :to="'/addcard/' + category.id">Add Cards</router-link>
       </div>
     </div>
   </div>
