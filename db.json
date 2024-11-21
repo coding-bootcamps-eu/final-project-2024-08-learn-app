@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "Nossa",
+      "password": "12345",
+      "email": "",
+      "points": 0,
+      "lastCategory": ""
+    },
+    {
+      "id": "2",
+      "username": "admin",
+      "password": "adminpass",
+      "email": "",
+      "points": 0,
+      "lastCategory": ""
+    }
+  ]
+}

@@ -1,17 +1,20 @@
 <template>
-  <PageHeader :headerText="'Login'" />
-  <form @submit.prevent="loginUser">
+  <PageHeader :headerText="'Du brauchst ein Profil, um die App zu benutzen'" />
+  <form @submit.prevent="handleRegister">
     <div class="form-group">
-      <label for="username">Username</label>
-      <input v-model="username" type="text" id="username" />
+      <label for="username">Username wählen</label>
+      <input v-model="username" type="text" id="username" minlength="5" />
     </div>
     <div class="form-group">
-      <label for="password">Passwort</label>
+      <label for="password">Passwort wählen</label>
       <input v-model="password" id="password" type="password" minlength="5" required />
     </div>
+    <div class="form-group">
+      <label for="email">Email-Adresse</label>
+      <input v-model="email" id="email" type="email" minlength="5" required />
+    </div>
     <div class="button-class">
-      <a href="#">Passwort vergessen</a>
-      <MainButton :text="'Einloggen'" type="submit" />
+      <MainButton :text="'Registrieren'" type="submit" />
     </div>
   </form>
 </template>
@@ -25,14 +28,28 @@ export default {
   data() {
     return {
       username: '',
+      email: '',
       password: '',
     }
   },
   components: { MainButton, PageHeader },
   methods: {
-    async loginUser() {
-      const store = useUsersStore()
-      await store.login(this.username, this.password)
+    async handleRegister() {
+      const newUser = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      }
+
+      const usersStore = useUsersStore()
+
+      try {
+        await usersStore.register(newUser)
+        alert('Registrierung erfolgreich!')
+      } catch (error) {
+        alert('Registrierung fehlgeschlagen. Bitte versuche es erneut.')
+        console.error(error)
+      }
     },
   },
 }
@@ -63,7 +80,7 @@ input {
 
 .button-class {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-content: center;
 }
 
@@ -71,7 +88,6 @@ a {
   color: var(--clr-green-dark);
   text-decoration: none;
   font-style: italic;
-  align-self: center;
 }
 
 @media (max-width: 480px) {

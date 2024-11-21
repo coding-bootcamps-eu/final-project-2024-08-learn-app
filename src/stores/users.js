@@ -5,7 +5,11 @@ export const useUsersStore = defineStore('user', {
   state() {
     return {
       currentUser: {
-        name: 'testinand',
+        username: '',
+        password: '',
+        email: '',
+        points: '',
+        lastCategory: '',
       },
       categories: [],
       learningCards: [],
@@ -14,7 +18,7 @@ export const useUsersStore = defineStore('user', {
 
   getters: {
     isLoggedIn() {
-      return this.currentUser !== null
+      return !!this.currentUser.id
     },
   },
 
@@ -154,10 +158,85 @@ export const useUsersStore = defineStore('user', {
       }
     },
 
+    async fetchUsers() {
+      const response = await fetch('http://localhost:3010/users/')
+      if (!response.ok) throw new Error('Failed to fetch users')
+      return await response.json()
+    },
+
+    async login(username, password) {
+      try {
+        const users = await this.fetchUsers()
+        const user = users.find((user) => user.username === username && user.password === password)
+
+        if (user) {
+          this.currentUser = user
+          localStorage.setItem('currentUser', JSON.stringify(user))
+          router.push('/')
+        } else {
+          throw new Error('Invalid username or password')
+        }
+      } catch (error) {
+        console.error('Login error:', error)
+      }
+    },
     logout() {
-      this.currentUser = null
+      localStorage.removeItem('currentUser')
+      this.currentUser = { username: '', password: '' }
       router.push('/login')
+    },
+    async updateUserDetails(newUsername, newPassword) {
+      if (newUsername) this.currentUser.username = newUsername
+      if (newPassword) this.currentUser.password = newPassword
+
+      localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+
+      try {
+        const response = await fetch(`http://localhost:3010/users/${this.currentUser.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...this.currentUser,
+          }),
+        })
+
+        if (response.ok) {
+          this.currentUser = await response.json()
+        } else {
+          console.error('Failed to update user. Status:', response.status)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    initializeUser() {
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'))
+      if (storedUser) {
+        this.currentUser = storedUser
+      }
+    },
+    async register(newUser) {
+      try {
+        const response = await fetch('http://localhost:3010/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+        })
+
+        if (!response.ok) throw new Error('Failed to register user.')
+
+        const registeredUser = await response.json()
+        this.currentUser = registeredUser
+        localStorage.setItem('currentUser', JSON.stringify(registeredUser))
+        router.push('/')
+      } catch (error) {
+        console.error('Registration error:', error)
+        throw error
+      }
     },
   },
 })
-
