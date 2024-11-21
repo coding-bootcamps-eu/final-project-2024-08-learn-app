@@ -13,6 +13,18 @@
         <router-link :to="'/addCard'">Add Cards</router-link>
       </div>
     </div>
+    <div class="category-item" >
+      <span>Alle</span>
+      <div class="actions">
+        <router-link :to="'/test/'+ 'all'">Testen</router-link>
+        <span>|</span>
+        <router-link :to="'/learn/'+ 'all'">Lernen</router-link>
+        <span>|</span>
+        <router-link :to="'/quiz/'+ 'all'">Quiz</router-link>
+        <span>|</span>
+        <router-link :to="'/addCard'">Add Cards</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
