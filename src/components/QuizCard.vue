@@ -107,11 +107,11 @@ export default {
   background-color: var(--clr-white);
   border-radius: 0.25rem;
   width: 100%;
-  box-shadow: 0.25rem 0.25rem 0.5rem var(--clr-lightgray);
 }
 
 ul {
   padding-block: 1rem;
+  padding-right: 1rem;
 }
 
 label {
