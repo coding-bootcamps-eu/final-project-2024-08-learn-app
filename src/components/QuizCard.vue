@@ -26,7 +26,7 @@
       >
         Antwort überprüfen
       </button>
-      <button v-if="!isLastQuestion && answered" @click="$emit('next')" class="next-button">
+      <button v-if="!isLastQuestion && answered" @click="emitNext" class="next-button">
         Weiter
       </button>
       <p v-if="isLastQuestion && answered" class="final-message">
@@ -63,42 +63,44 @@ export default {
     return {
       selectedAnswer: null,
       answered: false,
-    }
+    };
   },
   computed: {
     isAnswerCorrect() {
-      return this.selectedAnswer === this.rightAnswer
+      return this.selectedAnswer === this.rightAnswer;
     },
   },
   watch: {
     answers() {
-      this.resetState()
+      this.resetState();
     },
     rightAnswer() {
-      this.resetState()
+      this.resetState();
     },
   },
   methods: {
     submitAnswer() {
-      this.answered = true
+      this.answered = true;
     },
-    nextQuestion() {
-      this.$emit('next')
+    emitNext() {
+      // Event mit dem korrekten Status der Antwort senden
+      this.$emit("next", this.isAnswerCorrect);
     },
     isCorrect(index) {
-      return this.answered && index === this.rightAnswer
+      return this.answered && index === this.rightAnswer;
     },
     isWrong(index) {
-      return this.answered && index === this.selectedAnswer && index !== this.rightAnswer
+      return this.answered && index === this.selectedAnswer && index !== this.rightAnswer;
     },
     resetState() {
       // Zurücksetzen der Antwort und des Status
-      this.selectedAnswer = null
-      this.answered = false
+      this.selectedAnswer = null;
+      this.answered = false;
     },
   },
-}
+};
 </script>
+
 
 <style scoped>
 .quiz-container {
@@ -152,13 +154,13 @@ input[type='radio']:checked {
 
 .result-check-container {
   display: flex;
-  padding: 0.75rem 1rem;
+  padding-inline:1rem;
+  padding-bottom:  0.75rem ;
   justify-content: space-between;
   align-items: center;
 }
 
 .submit-button {
-  margin-top: 1rem;
   padding: 0.5rem 1rem;
   background-color: var(--clr-green-dark);
   color: var(--clr-white);
@@ -174,22 +176,41 @@ input[type='radio']:checked {
 
 .correct {
   color: var(--clr-green-light);
-  font-weight: bold;
 }
 
 .wrong {
-  color: var(--clr-red);
-  font-weight: bold;
+  color: var(--clr-orange);
 }
 
 .result {
   font-size: 1.2rem;
 }
 
+li:has(input:checked) {
+  /* Standard-Styling für die ausgewählte Antwort */
+  font-weight: bold;
+}
+
+li.correct:has(input:checked) label {
+  /* Styling für eine richtige Antwort */
+  color: var(--clr-green-light);
+  font-weight: bold;
+}
+
+li.wrong:has(input:checked) label {
+  /* Styling für eine falsche Antwort */
+  color: var(--clr-orange);
+  font-weight: bold;
+}
+
+/* Optional: Styling für die richtige Antwort, wenn sie nicht ausgewählt wurde */
+li.correct label{
+  color: var(--clr-green-light);
+}
+
 .next-button {
-  margin-top: 1rem;
   padding: 0.5rem 1rem;
-  background-color: var(--clr-blue);
+  background-color: var(--clr-green-dark);
   color: var(--clr-white);
   border: none;
   border-radius: 0.25rem;
@@ -197,7 +218,7 @@ input[type='radio']:checked {
 }
 
 .next-button:hover {
-  background-color: var(--clr-blue-light);
+  background-color: var(--clr-green-light);
 }
 
 .final-message {
