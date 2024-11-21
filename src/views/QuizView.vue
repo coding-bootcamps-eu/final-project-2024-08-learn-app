@@ -13,8 +13,8 @@
         @next="nextQuestion"
       />
       <p class="display mt-1">
-        Es wurden {{ rightAnswers }} Antworten von {{ currentIndex + 1 }} Fragen richtig beantwortet. <br />
-        Insgesamt gibt es in dieser Kategorie {{ questions.length }} Fragen.
+        {{ rightAnswers }} / {{ questions.length }} richtig beantwortet!
+        <!-- Insgesamt gibt es in dieser Kategorie {{ questions.length }} Fragen. -->
       </p>
     </index-card>
     <p v-if="questions.length === 0" class="loading">Lade Frage...</p>
@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import IndexCard from "@/components/IndexCard.vue";
-import PageHeader from "@/components/PageHeader.vue";
-import QuizCard from "@/components/QuizCard.vue";
-import { useUsersStore } from "@/stores/users";
+import IndexCard from '@/components/IndexCard.vue'
+import PageHeader from '@/components/PageHeader.vue'
+import QuizCard from '@/components/QuizCard.vue'
+import { useUsersStore } from '@/stores/users'
 
 export default {
   components: {
@@ -41,38 +41,43 @@ export default {
       questions: [],
       currentIndex: 0,
       rightAnswers: 0,
-    };
+    }
   },
   computed: {
     categoryId() {
-      return this.$route.params.id;
+      return this.$route.params.id
     },
   },
   mounted() {
-    this.loadCategoryQuestions(this.categoryId);
+    this.loadCategoryQuestions(this.categoryId)
   },
   methods: {
     async loadCategoryQuestions(categoryId) {
-      const categoryWithCards = await this.store.fetchCategoryWithCards(categoryId);
-      if (categoryWithCards && categoryWithCards.cards.length > 0) {
-        this.questions = categoryWithCards.cards;
-        this.currentIndex = 0;
+      if (categoryId === 'all') {
+        const categories = await this.store.fetchCategoryWithCards(categoryId)
+        this.questions = categories.flatMap((category) => category.cards) 
+        this.currentIndex = 0
+      } else {
+        const categoryWithCards = await this.store.fetchCategoryWithCards(categoryId)
+        if (categoryWithCards && categoryWithCards.cards.length > 0) {
+          this.questions = categoryWithCards.cards
+          this.currentIndex = 0
+        }
       }
     },
     nextQuestion(isCorrect) {
       // Wenn die Antwort korrekt ist, rightAnswers erhöhen
       if (isCorrect) {
-        this.rightAnswers++;
+        this.rightAnswers++
       }
       // Zur nächsten Frage gehen
       if (this.currentIndex < this.questions.length - 1) {
-        this.currentIndex++;
+        this.currentIndex++
       }
     },
   },
-};
+}
 </script>
-
 
 <style scoped>
 main {
@@ -92,8 +97,8 @@ main {
   max-width: 550px;
 }
 
-.display{
-  font-size: .9rem;
+.display {
+  font-size: 0.9rem;
 }
 
 .exit {
