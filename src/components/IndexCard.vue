@@ -22,7 +22,7 @@ div {
   border: solid 2px var(--clr-green-dark);
   padding: 2rem;
   width: 100%;
-  max-width: 550px;
+  max-width: 750px;
   aspect-ratio:  10 / 7;
   border-radius: 5px;
   display: flex;
@@ -44,6 +44,7 @@ div {
 
 @media (min-width: 768px) {
   div {
+    max-width: 550px;
     padding: 1.5rem;
   }
 }
