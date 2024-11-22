@@ -62,7 +62,6 @@ export default {
 .board-container {
   display: flex;
   justify-content: center;
-  padding: 20px;
 }
 
 .leader-board-wrapper {
