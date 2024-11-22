@@ -117,26 +117,29 @@ tbody tr td {
 .tab-num {
   text-align: center;
   font-weight: bold;
+  font-size: 1.3rem;
 }
 
 .tab-name {
   text-align: center;
+  font-size: 1.3rem;
 }
 
 .tab-points {
   text-align: center;
   font-weight: bold;
+  font-size: 1.3rem;
 }
 
 .top1 .tab-name {
   font-weight: bold;
   color: gold;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.9);
 }
 
 .top2 .tab-name {
   font-weight: bold;
-  color: silver;
+  color: rgb(149, 147, 147);
 }
 
 .top3 .tab-name {
