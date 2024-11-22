@@ -78,10 +78,16 @@ export default {
     },
   },
   async created() {
-    try {
+    if (this.categoryId === "all") {
+      const categories = await this.store.fetchCategoryWithCards(this.categoryId);
+      console.log(categories)
+      this.currentCategory.cards = categories.flatMap((category) => category.cards); 
+    } else {
+      try {
       this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId);
     } catch (error) {
       console.error("Fehler beim Laden der Kategorie:", error);
+    }
     }
   },
 
@@ -187,7 +193,7 @@ a {
   justify-content: space-between;
   width: 100%;
   max-width: 550px;
-  margin-left: 3rem;
+  margin-left: 5rem;
 }
 
 .exit {
