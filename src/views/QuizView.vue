@@ -12,7 +12,7 @@
         :isLastQuestion="currentIndex === questions.length - 1"
         @next="nextQuestion"
       />
-      <p class="display mt-1">
+      <p class="display">
         {{ rightAnswers }} / {{ questions.length }} richtig beantwortet!
         <!-- Insgesamt gibt es in dieser Kategorie {{ questions.length }} Fragen. -->
       </p>
@@ -55,7 +55,7 @@ export default {
     async loadCategoryQuestions(categoryId) {
       if (categoryId === 'all') {
         const categories = await this.store.fetchCategoryWithCards(categoryId)
-        this.questions = categories.flatMap((category) => category.cards) 
+        this.questions = categories.flatMap((category) => category.cards)
         this.currentIndex = 0
       } else {
         const categoryWithCards = await this.store.fetchCategoryWithCards(categoryId)
@@ -99,12 +99,13 @@ main {
 
 .display {
   font-size: 0.9rem;
+  margin-top: 1.25rem;
 }
 
 .exit {
   position: fixed;
-  bottom: calc(7rem + 2vw);
-  right: calc(5rem + 2vw);
+  bottom: 6rem;
+  right: calc(1rem + 2vw);
 
   cursor: pointer;
 
@@ -121,14 +122,39 @@ main {
 @media (min-width: 768px) {
   .page-header {
     display: block;
+    margin-left: 2rem;
   }
   .index-card {
-    margin-left: 5rem;
+    margin-left: 2rem;
     margin-top: 1rem;
+    max-width: 700px;
+  }
+
+  .exit {
+    right: calc(1rem + 1vw);
+    bottom: calc(6rem + 5vh);
   }
 
   a {
     font-weight: 300;
+  }
+}
+
+@media (min-width: 900px) {
+  .exit {
+    right: calc(1rem + 15vw);
+  }
+}
+
+@media (min-width: 1125px) {
+  .exit {
+    right: calc(1rem + 31vw);
+  }
+}
+
+@media (min-width: 1300px) {
+  .exit {
+    right: calc(1rem + 42vw);
   }
 }
 </style>

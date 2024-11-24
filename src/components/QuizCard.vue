@@ -1,5 +1,5 @@
 <template>
-  <article class="quiz-container mt-1">
+  <article class="quiz-container">
     <ul>
       <li
         v-for="(answer, index) in answers"
@@ -104,19 +104,24 @@ export default {
 
 <style scoped>
 .quiz-container {
+  margin-top: .5rem;
   background-color: var(--clr-white);
   border-radius: 0.25rem;
   width: 100%;
+  min-height: 400px;
 }
 
 ul {
   padding-block: 1rem;
   padding-right: 1rem;
+  min-height: calc(10rem + 5vh);
+  max-height: calc(10rem + 5vh);
 }
 
 label {
   color: var(--clr-black);
   font-size: 1rem;
+  padding-left: 1rem;
 }
 
 li {
@@ -126,7 +131,7 @@ li {
 }
 
 li + li {
-  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 input {
@@ -138,13 +143,13 @@ input[type='radio'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
-  width: 1.2rem;
+  min-width: 1.2rem;
   height: 1.2rem;
   border: 2px solid var(--clr-green-dark);
   border-radius: 50%;
   cursor: pointer;
   outline: none;
-  margin-right: 1.5rem;
+  margin-right: .5rem;
 }
 
 input[type='radio']:checked {
@@ -162,6 +167,7 @@ input[type='radio']:checked {
 
 .submit-button {
   padding: 0.5rem 1rem;
+  margin-top: 120px;
   background-color: var(--clr-green-dark);
   color: var(--clr-white);
   border: none;
@@ -184,23 +190,17 @@ input[type='radio']:checked {
 
 .result {
   font-size: 1.2rem;
-}
-
-li:has(input:checked) {
-  /* Standard-Styling für die ausgewählte Antwort */
-  font-weight: bold;
+  margin-top: 120px;
 }
 
 li.correct:has(input:checked) label {
   /* Styling für eine richtige Antwort */
   color: var(--clr-green-light);
-  font-weight: bold;
 }
 
 li.wrong:has(input:checked) label {
   /* Styling für eine falsche Antwort */
   color: var(--clr-orange);
-  font-weight: bold;
 }
 
 /* Optional: Styling für die richtige Antwort, wenn sie nicht ausgewählt wurde */
@@ -210,6 +210,7 @@ li.correct label{
 
 .next-button {
   padding: 0.5rem 1rem;
+  margin-top: 120px;
   background-color: var(--clr-green-dark);
   color: var(--clr-white);
   border: none;
@@ -224,5 +225,27 @@ li.correct label{
 .final-message {
   color: var(--clr-lightgray);
   font-size: 1rem;
+}
+
+@media (min-width: 400px) {
+  .quiz-container {
+  min-height: 250px;
+}
+
+.submit-button, .next-button, .result{
+  margin-top: 4rem;
+}
+}
+
+@media (min-width: 500px) {
+  .submit-button, .next-button, .result{
+  margin-top: 1rem;
+}
+
+@media (min-width: 600px) {
+  ul {
+    padding-top: 3rem;
+  }
+}
 }
 </style>
