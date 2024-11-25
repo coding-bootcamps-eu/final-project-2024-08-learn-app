@@ -23,12 +23,18 @@ export default {
 <style scoped>
 .page-header {
   margin-left: 5rem;
-  width: 50%;
+  width: 80%;
 }
 
 .page-header h2 {
   margin: 0;
   font-size: 1.5rem;
   color: var(--clr-green-dark);
+}
+
+@media (max-width: 480px) {
+ .page-header {
+  margin-left: 3rem;
+ }
 }
 </style>
