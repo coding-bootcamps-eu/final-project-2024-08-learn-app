@@ -22,6 +22,7 @@ button {
   color: var(--clr-white);
   font-size: 1.1rem;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .green {

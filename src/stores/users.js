@@ -172,7 +172,7 @@ export const useUsersStore = defineStore('user', {
         if (user) {
           this.currentUser = user
           localStorage.setItem('currentUser', JSON.stringify(user))
-          router.push('/')
+          router.push('/home')
         } else {
           throw new Error('Invalid username or password')
         }
@@ -232,7 +232,7 @@ export const useUsersStore = defineStore('user', {
         const registeredUser = await response.json()
         this.currentUser = registeredUser
         localStorage.setItem('currentUser', JSON.stringify(registeredUser))
-        router.push('/')
+        router.push('/home')
       } catch (error) {
         console.error('Registration error:', error)
         throw error
