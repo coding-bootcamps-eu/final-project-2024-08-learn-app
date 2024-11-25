@@ -2,20 +2,20 @@
   <header class="main__header">
     <!-- LOGO UND TITEL FÜR MOBILE ANSICHT -->
     <div class="header__logo-title" v-if="isMobile">
-      <router-link to="/" class="header__logo">
+      <router-link to="/home" class="header__logo">
         <img src="@/assets/Logo_Learnified.png" alt="Logo" />
       </router-link>
-      <router-link to="/" class="header__title">Learnified</router-link>
+      <router-link to="/home" class="header__title">Learnified</router-link>
     </div>
 
     <!-- LOGO, TITEL UND NAVIGATION FÜR DESKTOP -->
     <div class="header__desktop" v-else>
       <!-- LOGO UND TITEL ZUSAMMEN FÜR DESKTOP -->
       <div class="header__logo-container">
-        <router-link to="/" class="header__logo">
+        <router-link to="/home" class="header__logo">
           <img src="@/assets/Logo_Learnified.png" alt="Logo" />
         </router-link>
-        <router-link to="/" class="header__title-desktop">Learnified</router-link>
+        <router-link to="/home" class="header__title-desktop">Learnified</router-link>
       </div>
 
       <!-- NAVIGATION -->
