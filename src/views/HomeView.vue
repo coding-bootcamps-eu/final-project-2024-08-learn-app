@@ -71,7 +71,7 @@ export default {
   },
   computed:{
     makeHeaderText(){
-      return "Hallo " + this.store.currentUser.name + "! 👋";
+      return "Hallo " + this.store.currentUser.username + "! 👋";
     }
   }
 }

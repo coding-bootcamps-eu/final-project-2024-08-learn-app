@@ -57,25 +57,6 @@
           v-show="showBtnNextCard"
           @click="$emit('nextBtn')"
         />
-        <div class="add-edit" v-show="showRadios">
-          <input
-            class="radio-button"
-            type="radio"
-            name="radio-add"
-            id="radio-add"
-            @change="$emit('radioAdd')"
-            :checked="checked"
-          />
-          <label class="radio-label-left" for="radio-add">Karten hinzufügen </label>
-          <input
-            class="radio-button"
-            type="radio"
-            name="radio-add"
-            id="radio-edit"
-            @change="$emit('radioEdit')"
-          />
-          <label class="radio-label-right" for="radio-edit">Karten bearbeiten</label>
-        </div>
         <MainButton
           class="add-card"
           :class="{ 'is-inactive': isInActive }"
@@ -87,7 +68,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import MainButton from './MainButton.vue'
 
@@ -122,10 +102,6 @@ export default {
       type: String,
     },
     btnText: { type: String },
-    checked: { type: Boolean },
-    showRadios: {
-      type: Boolean,
-    },
 
     showBtnAddCard: {
       type: Boolean,
@@ -167,7 +143,7 @@ textarea::placeholder {
   margin-bottom: 4cqw;
   outline-color: var(--clr-green-dark);
   border-color: var(--clr-green-dark);
-  border-radius: 0.5cqw;
+  border-radius: 0.9cqw;
   padding: 3cqw;
   font-size: calc(0.5rem + (80 - 0.5) * ((100cqw - 200px) / (2000 - 200)));
   font-family: Arial, Helvetica, sans-serif;
@@ -191,6 +167,7 @@ textarea::placeholder {
   aspect-ratio: 5/4;
   padding: 3cqw 5cqw 1cqw 5cqw;
   border: 3px solid var(--clr-green-dark);
+  border-radius: 0.6rem;
   color: white;
   background-color: var(--clr-green-dark);
 }
@@ -210,27 +187,11 @@ h1 {
   margin-top: 1cqw;
 }
 
-.radio-label-left,
-.radio-label-right {
-  margin-left: 2cqw;
-  font-size: calc(0.3rem + (50 - 0.3) * ((100cqw - 200px) / (2000 - 200)));
-}
-
-.radio-label-left {
-  margin-left: 2cqw;
-  margin-right: 4cqw;
-}
-
-.radio-button {
-  transform: scale(2);
-  accent-color: var(--clr-green-dark);
-}
-
 .next-card,
 .last-card {
-  font-size: calc(0.3rem + (25 - 0.3) * ((100cqw - 200px) / (2000 - 200)));
-  margin-top: 1cqw;
-  margin-bottom: 5cqw;
+  font-size: calc(0.3rem + (50 - 0.3) * ((100cqw - 200px) / (2000 - 200)));
+  margin-top: 3cqw;
+  margin-bottom: 3cqw;
 }
 
 .add-card {
@@ -264,14 +225,6 @@ h1 {
   justify-self: end;
 }
 
-.add-edit {
-  padding: 1cqw 1cqw 1cqw 4cqw;
-  display: flex;
-  justify-items: flex-end;
-  grid-area: hinzu;
-  justify-self: start;
-}
-
 .add-card {
   grid-area: karte;
   justify-self: end;
@@ -282,19 +235,17 @@ h1 {
     color: var(--clr-green-dark);
     background-color: rgb(245, 245, 245);
   }
+
+  .last-card {
+    display: none;
+  }
+
   .next-card,
   .last-card,
   .add-card {
     color: var(--clr-green-dark);
     background-color: rgb(245, 245, 245);
     border: 0.25cqw solid var(--clr-green-dark);
-  }
-
-  .add-edit {
-    color: var(--clr-green-dark);
-    background-color: rgb(245, 245, 245);
-    border: 0.25cqw solid var(--clr-green-dark);
-    border-radius: 1cqw;
   }
 }
 </style>

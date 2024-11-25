@@ -4,9 +4,16 @@
     :headerText="makeHeaderText"
     subheaderText="Bastel dir einfach Deine eigenen!"
   />
-  <h2 class="category-header">Deine aktuelle Kategorie: {{ actCategoryTitle }}</h2>
-
   <div class="home-view-wrapper">
+    <h2 class="category-header">Deine aktuelle Kategorie: {{ actCategoryTitle }}</h2>
+    <RadioButtons
+      class="main-selector"
+      :showRadios="true"
+      @radioAdd="addMode"
+      @radioEdit="editMode"
+      @radioImport="importFile"
+      :checked="true"
+    />
     <QuestionCard
       :showRight="true"
       :showLeft="true"
@@ -14,15 +21,12 @@
       cardHeader="Frage"
       placeholder="Bitte eine Frage eingeben..."
       :showBtnLastCard="showPager"
-      :showBtnNextCard="false"
-      :showRadios="true"
+      :showBtnNextCard="showPager"
       :showBtnAddCard="false"
       :cardText="questionText || questionInput"
       @inputText="getQuestion"
-      @radioAdd="addMode"
-      @radioEdit="editMode"
       @lastBtn="cardBack"
-      :checked="true"
+      @nextBtn="cardAhead"
     />
     <AnswersCard
       :showRight="true"
@@ -30,9 +34,8 @@
       class="answer-card"
       cardHeader="Antworten"
       placeholder="Bitte eine zur Frage passende Antwort eingeben..."
-      :showBtnLastCard="false"
+      :showBtnLastCard="showPager"
       :showBtnNextCard="showPager"
-      :showRadios="false"
       :showBtnAddCard="showAddCard"
       :rightAnswerInput="rightAnswerText || rightAnswerInput"
       :answerOneInput="answerOneText || answerOneInput"
@@ -45,6 +48,7 @@
       @answerTwoOutput="getAnswerTwo"
       @answerThreeOutput="getAnswerThree"
       @addCard="addCard"
+      @lastBtn="cardBack"
       @nextBtn="cardAhead"
     />
   </div>
@@ -53,7 +57,7 @@
 import QuestionCard from '@/components/QuestionCard.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import AnswersCard from '@/components/AnswersCard.vue'
-
+import RadioButtons from '@/components/RadioButtons.vue'
 import { useUsersStore } from '@/stores/users'
 
 export default {
@@ -101,21 +105,21 @@ export default {
     QuestionCard,
     AnswersCard,
     PageHeader,
+    RadioButtons,
   },
   computed: {
     // Text für den Page-Header
     makeHeaderText() {
-      return 'Hallo ' + this.store.currentUser.name + '! Dir fehlen Karten? ✂️'
+      return 'Hallo ' + this.store.currentUser.username + '! Dir fehlen Karten? ✂️'
     },
     //Aktuelle Kategorie aus der URL holen
     categoryId() {
       return this.$route.params.id
     },
- //Buton hinzufügen /bearbeiten ausgrauen und nur anzeigen wenn in jedem Textfeld mindestens ein Buchstabe eingegeben wurde
+    //Buton hinzufügen /bearbeiten ausgrauen und nur anzeigen wenn in jedem Textfeld mindestens ein Buchstabe eingegeben wurde
     buttonInactive() {
       let result
-      if(this.addModeFlag === true)
-      {
+      if (this.addModeFlag === true) {
         result = !(this.qok && this.rok && this.a0ok && this.a1ok && this.a2ok)
       } else {
         result = false
@@ -333,7 +337,7 @@ export default {
           }
         }
         let arr = []
-         arr[this.actCard.rightAnswer] = this.rightAnswerText || this.rightAnswerInput
+        arr[this.actCard.rightAnswer] = this.rightAnswerText || this.rightAnswerInput
         arr[indices[0]] = this.answerOneText || this.answerOneInput
         arr[indices[1]] = this.answerTwoText || this.answerTwoInput
         arr[indices[2]] = this.answerThreeText || this.answerThreeInput
@@ -364,9 +368,13 @@ export default {
   display: none;
 }
 .category-header {
-  margin-top: 1vw;
   color: var(--clr-green-dark);
-  padding-left: 5rem;
+  font-size: 3vw;
+  grid-area: pheader;
+}
+
+.main-selector {
+  grid-area: 'radios';
 }
 
 .home-view-wrapper {
@@ -375,15 +383,16 @@ export default {
   justify-content: center;
   align-items: center;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
-  grid-template-areas: 'answer' 'question';
-  gap: 15vw;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas: 'pheader' 'radios' 'answer' 'question';
+  gap: 4vw;
 }
+
 .answer-card {
   grid-area: answer;
 }
 
-.answer-card {
+.question-card {
   grid-area: question;
 }
 
@@ -391,17 +400,21 @@ export default {
   .page-header {
     display: inline-block;
   }
-
+  .category-header {
+    color: var(--clr-green-dark);
+    font-size: 1.8vw;
+    grid-area: pheader;
+  }
   .home-view-wrapper {
-    padding-top: 2vh;
+    padding-top: 1vw;
     padding-left: 5rem;
     padding-bottom: 2rem;
     justify-content: start;
     align-items: start;
     grid-template-columns: 40% 40%;
-    grid-template-rows: 50%;
-    grid-template-areas: 'answer question';
-    gap: 2vw;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 'pheader pheader' 'radios dummy' 'question answer ';
+    gap: 1.5vw;
   }
 }
 </style>
