@@ -10,13 +10,15 @@
     </div>
     <div class="form-group">
       <label for="current-password">Current Password</label>
-      <span id="current-password">{{ currentPassword }}</span>
+      <input v-model="inputCurrentPassword" id="current-password" type="password" />
       <label for="new-password">New Password</label>
       <input v-model="newPassword" id="new-password" type="text" />
       <MainButton :text="'Save'" />
     </div>
   </form>
   <div v-if="updateSuccess" class="success-message">Profil erfolgreich aktualisiert!</div>
+  <div v-if="updateError" class="error-message">Das eingegebene Passwort ist falsch.</div>
+
 </template>
 
 <script>
@@ -29,10 +31,11 @@ export default {
     const store = useUsersStore()
     return {
       store,
-
       newUsername: '',
+      inputCurrentPassword: '',
       newPassword: '',
       updateSuccess: false,
+      updateError: false,
     }
   },
   components: { MainButton, PageHeader },
@@ -46,8 +49,16 @@ export default {
   },
   methods: {
     updateUserDetails() {
+
+        if (this.inputCurrentPassword !== this.store.currentUser.password) {
+        this.updateError = true;
+        setTimeout(() => (this.updateError = false), 3000); 
+        return;
+      }
+
+
       if (this.newPassword && this.newPassword.length < 8) {
-        alert('Das Passwort muss mindestens 5 Zeichen lang sein.')
+        alert('Das Passwort muss mindestens 8 Zeichen lang sein.')
         return
       }
 
@@ -158,11 +169,22 @@ input {
 }
 
 .success-message {
-  color: #156064;
-  background-color: #00c49a;
+  color: var(--clr-green-dark);
+  background-color: var(--clr-green-light);
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 15px;
   text-align: center;
 }
+
+.error-message {
+  color: var(--clr-red);
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+
 </style>

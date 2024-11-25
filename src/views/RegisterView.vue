@@ -7,7 +7,7 @@
     </div>
     <div class="form-group">
       <label for="password">Passwort wählen</label>
-      <input v-model="password" id="password" type="password" minlength="5" required />
+      <input v-model="password" id="password" type="password" minlength="8" required />
     </div>
     <div class="form-group">
       <label for="email">Email-Adresse</label>
