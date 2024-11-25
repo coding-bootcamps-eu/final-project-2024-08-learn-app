@@ -2,8 +2,10 @@
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="@/assets/Logo_Learnified.png" alt="Learnified Logo" class="footer-logo" />
-        <p>{{ currentYear }} Learnified</p>
+        <router-link to="/home" class="footer-home-link">
+          <img src="@/assets/Logo_Learnified.png" alt="Learnified Logo" class="footer-logo" />
+          <p>{{ currentYear }} Learnified</p>
+        </router-link>
       </div>
       <nav>
         <router-link to="/Datenschutz">Datenschmutz</router-link>
@@ -44,6 +46,18 @@ export default {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.footer-home-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer-home-link:hover {
+  text-decoration: none;
 }
 
 .footer-logo {
