@@ -69,10 +69,9 @@ export default {
     },
   },
   async created() {
-    if (this.categoryId === 'all') {
-      const categories = await this.store.fetchCategoryWithCards(this.categoryId)
-      console.log(categories)
-      this.currentCategory.cards = categories.flatMap((category) => category.cards)
+    if (this.categoryId === "all") {
+      const categories = await this.store.fetchCategoryWithCards(this.categoryId);
+      this.currentCategory.cards = categories.flatMap((category) => category.cards);
     } else {
       try {
         this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId)

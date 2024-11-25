@@ -3,7 +3,11 @@
     <page-header class="page-header" headerText="Lernmodus" />
     <div class="card-container shared-width">
       <!-- Frage wird dynamisch eingebunden -->
-      <index-card class="question-card" v-if="currentCard" :text="currentCard.question" />
+      <index-card
+        class="question-card"
+        v-if="currentCard"
+        :text="currentCard.question"
+      />
       <!-- Antwort wird dynamisch eingebunden -->
       <index-card
         class="answer-card mt-1"
@@ -44,7 +48,7 @@ export default {
   data() {
     return {
       store: useUsersStore(),
-      currentCategory: null,
+      currentCategory: { cards: [] },
       currentCardIndex: 0, // Start bei der ersten Karte
     }
   },
@@ -79,10 +83,17 @@ export default {
     },
   },
   async created() {
-    // Laden der Kategorie und ihrer Karten
-
-    this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId)
-    console.log(this.currentCategory)
+      console.log(this.categoryId)
+    if (this.categoryId === "all") {
+      const categories = await this.store.fetchCategoryWithCards(this.categoryId);
+      this.currentCategory.cards = categories.flatMap((category) => category.cards);
+    } else {
+      try {
+      this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId);
+    } catch (error) {
+      console.error("Fehler beim Laden der Kategorie:", error);
+    }
+    }
   },
 }
 </script>

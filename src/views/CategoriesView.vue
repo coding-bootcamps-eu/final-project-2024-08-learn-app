@@ -22,7 +22,7 @@
         <span>|</span>
         <router-link :to="'/quiz/'+ 'all'">Quiz</router-link>
         <span>|</span>
-        <router-link :to="'/addCard'">Add Cards</router-link>
+        <router-link :to="'/addCard'" id="hid">Add Cards</router-link>
       </div>
     </div>
   </div>
@@ -85,6 +85,11 @@ export default {
 
 .actions a:hover {
   text-decoration: underline;
+}
+
+#hid {
+  opacity: 0;
+  cursor: default;
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
