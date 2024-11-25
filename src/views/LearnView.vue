@@ -1,32 +1,28 @@
 <template>
-  <main>
+  <main class="main-content">
     <page-header class="page-header" headerText="Lernmodus" />
-    <div class="card-container">
+    <div class="card-container shared-width">
       <!-- Frage wird dynamisch eingebunden -->
-      <index-card 
-        class="question-card" 
-        v-if="currentCard" 
-        :text="currentCard.question" 
-      />
+      <index-card class="question-card" v-if="currentCard" :text="currentCard.question" />
       <!-- Antwort wird dynamisch eingebunden -->
-      <index-card 
-        class="answer-card mt-1" 
-        v-if="currentCard" 
-        colors="white" 
+      <index-card
+        class="answer-card mt-1"
+        v-if="currentCard"
+        colors="white"
         :text="currentCard?.answers[currentCard?.rightAnswer]"
       />
     </div>
-    <div class="link-container mt-1">
+    <div class="link-container shared-width mt-1">
       <!-- Zurück-Button mit Steuerung -->
-      <a 
-        @click="previousCard" 
+      <a
+        @click="previousCard"
         :style="{ visibility: currentCardIndex === 0 ? 'hidden' : 'visible' }"
       >
         Zurück
       </a>
       <!-- Weiter-Button mit Steuerung -->
-      <a 
-        @click="nextCard" 
+      <a
+        @click="nextCard"
         :style="{ visibility: currentCardIndex === cards.length - 1 ? 'hidden' : 'visible' }"
       >
         Weiter
@@ -50,45 +46,45 @@ export default {
       store: useUsersStore(),
       currentCategory: null,
       currentCardIndex: 0, // Start bei der ersten Karte
-    };
+    }
   },
   computed: {
     // Aktuelle Kategorie-ID aus der Route
     categoryId() {
-      return this.$route.params.id;
+      return this.$route.params.id
     },
 
     // Karten der aktuellen Kategorie
     cards() {
-      return this.currentCategory?.cards || [];
+      return this.currentCategory?.cards || []
     },
 
     // Aktuelle Karte basierend auf currentCardIndex
     currentCard() {
-      return this.cards[this.currentCardIndex] || null;
+      return this.cards[this.currentCardIndex] || null
     },
   },
   methods: {
     // Nächste Karte
     nextCard() {
       if (this.currentCardIndex < this.cards.length - 1) {
-        this.currentCardIndex++;
+        this.currentCardIndex++
       }
     },
     // Vorherige Karte
     previousCard() {
       if (this.currentCardIndex > 0) {
-        this.currentCardIndex--;
+        this.currentCardIndex--
       }
     },
   },
   async created() {
     // Laden der Kategorie und ihrer Karten
-    
-    this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId);
+
+    this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId)
     console.log(this.currentCategory)
   },
-};
+}
 </script>
 
 <style scoped>
@@ -99,7 +95,7 @@ main {
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding-inline: 5rem;
+  padding-inline: 2.5rem;
 }
 
 .page-header {
@@ -127,6 +123,12 @@ a {
   cursor: pointer;
 }
 
+@media (min-width: 500px) {
+  .main-container {
+    width: 350px;
+  }
+}
+
 @media (min-width: 768px) {
   .page-header {
     display: block;
@@ -136,11 +138,6 @@ a {
 
   .card-container {
     flex-direction: row;
-  }
-
-  .question-card,
-  .answer-card {
-    transform: scaleY(1.2);
   }
 
   .answer-card {
@@ -154,9 +151,31 @@ a {
   }
 }
 
+@media (min-width: 800px) {
+  .main-content {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .card-container {
+    justify-content: space-between;
+  }
+
+  .shared-width {
+    max-width: calc(750px + 2vw);
+    min-width: calc(750px + 2vw);
+  }
+}
+
 @media (min-width: 1160px) {
   .card-container {
     justify-content: space-between;
+  }
+  .question-card, .answer-card {
+    min-width: 350px;
+    max-width: 350px;
+    min-height: 245px;
+    max-height: 245px;
   }
 }
 </style>

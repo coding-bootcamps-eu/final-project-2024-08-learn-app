@@ -1,6 +1,8 @@
 <template>
-  <div :class="colors">
-    <p :class="colors">{{ text }}</p>
+  <div class="main-container" :class="colors">
+    <div>
+      <p :class="colors">{{ text }}</p>
+    </div>
     <slot/>
   </div>
 </template>
@@ -18,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-div {
+.main-container {
   border: solid 2px var(--clr-green-dark);
   padding: 2rem;
   width: 100%;
