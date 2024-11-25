@@ -12,12 +12,25 @@ import Datenschutz from '@/views/Datenschutz.vue'
 import Contact from '@/views/Kontakt.vue'
 import Impressum from '@/views/Impressum.vue'
 import RegisterView from '@/views/RegisterView.vue'
+import WelcomeView from '@/views/WelcomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/welcome',
+      name: 'welcome',
+      component: WelcomeView,
+      meta: {
+        isPublic: true,
+      },
+    },
+    {
       path: '/',
+      redirect: '/welcome',
+    },
+    {
+      path: '/home',
       name: 'home',
       component: HomeView,
     },
@@ -96,14 +109,14 @@ router.beforeEach(function (to) {
       return
     } else {
       // Wenn nicht öffentlich: Weiterleiten auf /login
-      return router.push('/login')
+      return router.push('/welcome')
     }
     // Wenn User eingeloggt
   } else {
     // Versucht auf /login zu gehen
     if (to.fullPath === '/login') {
       // Weiterleiten auf /
-      return router.push('/')
+      return router.push('/home')
     }
   }
 })

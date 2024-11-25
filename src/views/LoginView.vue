@@ -43,8 +43,7 @@ form {
   display: flex;
   flex-direction: column;
   margin-top: 3rem;
-  margin-left: 3rem;
-  max-width: 500px;
+  max-width: 400px;
 }
 
 label {
@@ -75,30 +74,31 @@ a {
 }
 
 @media (max-width: 480px) {
-  input,
-  label {
+  form {
     font-size: 0.9rem;
+    margin-inline: 3rem;
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-  input,
-  label {
+  form {
     font-size: 1rem;
+    margin-left: 5rem;
+    margin-right: 7rem;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1279px) {
-  input,
-  label {
+  form {
     font-size: 1.1rem;
+    margin-left: 5rem;
   }
 }
 
 @media (min-width: 1280px) {
-  input,
-  label {
+  form {
     font-size: 1.2rem;
+    margin-left: 5rem;
   }
 }
 </style>

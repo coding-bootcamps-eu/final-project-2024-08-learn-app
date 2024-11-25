@@ -24,7 +24,8 @@
 
         <router-link v-if="isLoggedIn" to="/profile" class="nav__item">Profil</router-link>
         <button v-if="isLoggedIn" @click="logout" class="header__logout">Ausloggen</button>
-        <router-link v-else to="/login">
+        <router-link v-if="!isLoggedIn" to="/register" class="nav__item">Registrieren</router-link>
+        <router-link v-if="!isLoggedIn" to="/login">
           <button class="header__logout">Einloggen</button>
         </router-link>
       </nav>
@@ -43,7 +44,8 @@
 
       <router-link v-if="isLoggedIn" to="/profile" class="nav__item">Profil</router-link>
       <button v-if="isLoggedIn" @click="logout" class="header__logout">Ausloggen</button>
-      <router-link v-else to="/login">
+      <router-link v-if="!isLoggedIn" to="/register" class="nav__item">Registrieren</router-link>
+      <router-link v-if="!isLoggedIn" to="/login">
         <button class="header__logout">Einloggen</button>
       </router-link>
     </nav>

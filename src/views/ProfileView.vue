@@ -65,6 +65,7 @@ export default {
 form {
   display: flex;
   flex-direction: column;
+  margin-top: 3rem;
   max-width: 400px;
 }
 
@@ -102,14 +103,11 @@ input {
 
 @media (max-width: 480px) {
   form {
-    margin-inline: 1rem;
-    margin-top: 2rem;
+    font-size: 0.9rem;
+    margin-inline: 3rem;
   }
 
-  input,
-  label {
-    font-size: 14px;
-  }
+
   button {
     width: 50%;
     align-self: flex-end;
@@ -119,14 +117,12 @@ input {
 
 @media (min-width: 481px) and (max-width: 768px) {
   form {
-    margin-left: 3rem;
-    margin-top: 3rem;
+    font-size: 1rem;
+    margin-left: 5rem;
+    margin-right: 7rem;
   }
 
-  input,
-  label {
-    font-size: 16px;
-  }
+
   button {
     width: 50%;
     align-self: flex-end;
@@ -136,14 +132,11 @@ input {
 
 @media (min-width: 769px) and (max-width: 1279px) {
   form {
-    margin-left: 3rem;
-    margin-top: 3rem;
+    font-size: 1.1rem;
+    margin-left: 5rem;
   }
 
-  input,
-  label {
-    font-size: 18px;
-  }
+ 
   button {
     width: 50%;
     align-self: flex-end;
@@ -153,14 +146,10 @@ input {
 
 @media (min-width: 1280px) {
   form {
-    margin-left: 3rem;
-    margin-top: 3rem;
+    font-size: 1.2rem;
+    margin-left: 5rem;
   }
 
-  input,
-  label {
-    font-size: 19px;
-  }
   button {
     width: 50%;
     align-self: flex-end;
