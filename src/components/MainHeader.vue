@@ -273,9 +273,9 @@ header.main__header {
   text-shadow: 3px 3px 10px black;
 }
 
-.header__logout:hover {
+/* .header__logout:hover {
   color: red;
-}
+} */
 
 /* .nav__item:hover {
   color: #00c49a;
