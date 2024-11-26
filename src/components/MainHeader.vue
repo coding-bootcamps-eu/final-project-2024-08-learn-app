@@ -115,14 +115,6 @@ export default {
 </script>
 
 <style scoped>
-/* SCHRIFTART */
-@font-face {
-  font-family: 'crew69';
-  src: url('@/src/assets/fonts/crew.69.ttf') format('ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
 /* ALLGEMEINER HEADER-STIL */
 .main__header {
   display: flex;
