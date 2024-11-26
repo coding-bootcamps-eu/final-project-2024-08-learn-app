@@ -3,7 +3,7 @@
     <div>
       <p :class="colors">{{ text }}</p>
     </div>
-    <slot/>
+    <slot />
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
   padding: 2rem;
   width: 100%;
   max-width: 750px;
-  aspect-ratio:  10 / 7;
+  aspect-ratio: 10 / 7;
   border-radius: 5px;
   display: flex;
   flex-direction: column;

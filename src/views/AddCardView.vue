@@ -384,7 +384,7 @@ export default {
   align-items: center;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto auto;
-  grid-template-areas: 'pheader' 'radios' 'answer' 'question';
+  grid-template-areas: 'pheader' 'radios' 'question' 'answer';
   gap: 4vw;
 }
 

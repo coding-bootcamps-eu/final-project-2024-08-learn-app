@@ -63,48 +63,47 @@ export default {
     return {
       selectedAnswer: null,
       answered: false,
-    };
+    }
   },
   computed: {
     isAnswerCorrect() {
-      return this.selectedAnswer === this.rightAnswer;
+      return this.selectedAnswer === this.rightAnswer
     },
   },
   watch: {
     answers() {
-      this.resetState();
+      this.resetState()
     },
     rightAnswer() {
-      this.resetState();
+      this.resetState()
     },
   },
   methods: {
     submitAnswer() {
-      this.answered = true;
+      this.answered = true
     },
     emitNext() {
       // Event mit dem korrekten Status der Antwort senden
-      this.$emit("next", this.isAnswerCorrect);
+      this.$emit('next', this.isAnswerCorrect)
     },
     isCorrect(index) {
-      return this.answered && index === this.rightAnswer;
+      return this.answered && index === this.rightAnswer
     },
     isWrong(index) {
-      return this.answered && index === this.selectedAnswer && index !== this.rightAnswer;
+      return this.answered && index === this.selectedAnswer && index !== this.rightAnswer
     },
     resetState() {
       // Zurücksetzen der Antwort und des Status
-      this.selectedAnswer = null;
-      this.answered = false;
+      this.selectedAnswer = null
+      this.answered = false
     },
   },
-};
+}
 </script>
-
 
 <style scoped>
 .quiz-container {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   background-color: var(--clr-white);
   border-radius: 0.25rem;
   width: 100%;
@@ -149,7 +148,7 @@ input[type='radio'] {
   border-radius: 50%;
   cursor: pointer;
   outline: none;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 
 input[type='radio']:checked {
@@ -159,8 +158,8 @@ input[type='radio']:checked {
 
 .result-check-container {
   display: flex;
-  padding-inline:1rem;
-  padding-bottom:  0.75rem ;
+  padding-inline: 1rem;
+  padding-bottom: 0.75rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -204,7 +203,7 @@ li.wrong:has(input:checked) label {
 }
 
 /* Optional: Styling für die richtige Antwort, wenn sie nicht ausgewählt wurde */
-li.correct label{
+li.correct label {
   color: var(--clr-green-light);
 }
 
@@ -229,23 +228,27 @@ li.correct label{
 
 @media (min-width: 400px) {
   .quiz-container {
-  min-height: 250px;
-}
+    min-height: 250px;
+  }
 
-.submit-button, .next-button, .result{
-  margin-top: 4rem;
-}
+  .submit-button,
+  .next-button,
+  .result {
+    margin-top: 4rem;
+  }
 }
 
 @media (min-width: 500px) {
-  .submit-button, .next-button, .result{
-  margin-top: 1rem;
-}
-
-@media (min-width: 600px) {
-  ul {
-    padding-top: 3rem;
+  .submit-button,
+  .next-button,
+  .result {
+    margin-top: 1rem;
   }
-}
+
+  @media (min-width: 600px) {
+    ul {
+      padding-top: 3rem;
+    }
+  }
 }
 </style>

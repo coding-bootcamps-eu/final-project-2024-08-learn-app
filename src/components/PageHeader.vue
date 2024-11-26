@@ -1,6 +1,6 @@
 <template>
   <header class="page-header">
-    <h2>{{ headerText }}<br>{{ subheaderText }}</h2>
+    <h2>{{ headerText }}<br />{{ subheaderText }}</h2>
   </header>
 </template>
 
@@ -10,13 +10,13 @@ export default {
   props: {
     headerText: {
       type: String,
-      required: true
+      required: true,
     },
     subheaderText: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 
@@ -33,8 +33,8 @@ export default {
 }
 
 @media (max-width: 480px) {
- .page-header {
-  margin-left: 3rem;
- }
+  .page-header {
+    margin-left: 3rem;
+  }
 }
 </style>

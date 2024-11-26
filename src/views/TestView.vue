@@ -7,9 +7,10 @@
         <index-card
           class="card-front"
           :text="
-            !showFinalResult 
+            !showFinalResult
               ? currentCard?.question || 'Loading...'
-              : 'Es gibt keine weiteren Fragen mehr in dieser Kategorie!'"
+              : 'Es gibt keine weiteren Fragen mehr in dieser Kategorie!'
+          "
           colors="green"
         />
         <!-- Rückseite mit der Antwort -->
@@ -24,37 +25,32 @@
     <!-- Aufdecken-Button -->
     <div class="reveal-container shared-width">
       <!-- Aufdecken-Button nur anzeigen, wenn es noch weitere Karten gibt -->
-      <a 
-        class="reveal-btn" 
-        v-if="showLink && currentCardIndex < currentCategory.cards.length" 
-        href="#" 
+      <a
+        class="reveal-btn"
+        v-if="showLink && currentCardIndex < currentCategory.cards.length"
+        href="#"
         @click.prevent="revealAnswer"
-      > 
-        Aufdecken 
+      >
+        Aufdecken
       </a>
 
       <!-- Fortschritt nur anzeigen, wenn es noch weitere Karten gibt -->
       <p
         class="answer-count"
-        v-if="
-          currentCardIndex > 0 && 
-          currentCardIndex < currentCategory.cards.length && 
-          showLink
-        "
+        v-if="currentCardIndex > 0 && currentCardIndex < currentCategory.cards.length && showLink"
       >
         Richtige Antworten: {{ rightAnswers }}/{{ currentCardIndex }} ({{ percentage }}%)
       </p>
 
       <!-- Endergebnis anzeigen, wenn alle Karten beantwortet wurden -->
-      <p  class="final-result"
-          v-if="showFinalResult">
+      <p class="final-result" v-if="showFinalResult">
         Endergebnis: {{ rightAnswers }}/{{ currentCardIndex + 1 }} ({{ finalPercentage }}%)
       </p>
     </div>
 
     <!-- Buttons für richtig/falsch -->
-    <section 
-      v-if="showButtons && currentCardIndex < currentCategory.cards.length" 
+    <section
+      v-if="showButtons && currentCardIndex < currentCategory.cards.length"
       class="btn-container shared-width"
     >
       <main-button text="Richtig" colors="lightgreen" @click="submitAnswer(true)" />
@@ -102,7 +98,7 @@ export default {
     },
     percentage() {
       if (this.currentCardIndex === 0) return '0' // Vermeiden von Division durch 0
-      const percentage = (this.rightAnswers * 100) / (this.currentCardIndex)
+      const percentage = (this.rightAnswers * 100) / this.currentCardIndex
       // Prüfen, ob Ganzzahl oder Nachkommastellen vorhanden
       return percentage % 1 === 0 ? percentage : percentage.toFixed(2)
     },
@@ -127,46 +123,46 @@ export default {
   },
 
   methods: {
-  revealAnswer() {
-    if (this.currentCardIndex < this.cards.length) {
-      this.showAnswer = true;
-      this.showButtons = true;
-      this.showLink = false;
-    }
+    revealAnswer() {
+      if (this.currentCardIndex < this.cards.length) {
+        this.showAnswer = true
+        this.showButtons = true
+        this.showLink = false
+      }
+    },
+    submitAnswer(result) {
+      if (result) this.rightAnswers++
+
+      // Prüfen, ob wir am Ende sind, bevor andere Änderungen passieren
+      const isLastCard = this.currentCardIndex === this.cards.length - 1
+
+      if (isLastCard) {
+        // Alle Karten wurden beantwortet: Endzustand setzen
+        this.showButtons = false
+        this.showLink = false
+        this.showAnswer = false
+        this.showFinalResult = true
+        return // Weitere Logik überspringen
+      }
+
+      // Wenn es nicht die letzte Karte ist, zum nächsten Zustand übergehen
+      this.showAnswer = false
+
+      setTimeout(() => {
+        this.nextCard()
+      }, this.delayBeforeNextCard)
+    },
+    nextCard() {
+      if (this.currentCardIndex < this.cards.length - 1) {
+        this.currentCardIndex++
+        this.resetCard()
+      }
+    },
+    resetCard() {
+      this.showButtons = false
+      this.showLink = true // Zeigt den Aufdecken-Button wieder an
+    },
   },
-  submitAnswer(result) {
-  if (result) this.rightAnswers++;
-
-  // Prüfen, ob wir am Ende sind, bevor andere Änderungen passieren
-  const isLastCard = this.currentCardIndex === this.cards.length - 1;
-
-  if (isLastCard) {
-    // Alle Karten wurden beantwortet: Endzustand setzen
-    this.showButtons = false;
-    this.showLink = false;
-    this.showAnswer = false;
-    this.showFinalResult = true;
-    return; // Weitere Logik überspringen
-  }
-
-  // Wenn es nicht die letzte Karte ist, zum nächsten Zustand übergehen
-  this.showAnswer = false;
-
-  setTimeout(() => {
-    this.nextCard();
-  }, this.delayBeforeNextCard);
-},
-  nextCard() {
-    if (this.currentCardIndex < this.cards.length - 1) {
-      this.currentCardIndex++;
-      this.resetCard();
-    }
-  },
-  resetCard() {
-    this.showButtons = false;
-    this.showLink = true; // Zeigt den Aufdecken-Button wieder an
-  },
-},
 }
 </script>
 
@@ -260,7 +256,7 @@ a {
 .answer-count {
   margin-top: 1rem;
   margin-left: 1rem;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: var(--clr-green-dark);
   font-weight: bold;
 }

@@ -31,7 +31,7 @@ export const useUsersStore = defineStore('user', {
 
     async fetchCategoryWithCards(id) {
       try {
-        const response = await fetch('http://localhost:3010/categories/'+id+'?_embed=cards')
+        const response = await fetch('http://localhost:3010/categories/' + id + '?_embed=cards')
         if (!response.ok) throw new Error('Fehler beim Laden der Kategorien mit Karten')
         return await response.json()
       } catch (error) {
@@ -153,4 +153,3 @@ export const useUsersStore = defineStore('user', {
     },
   },
 })
-

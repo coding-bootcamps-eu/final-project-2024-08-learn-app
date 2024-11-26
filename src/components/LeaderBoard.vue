@@ -12,7 +12,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(leader, index) in boardLeaders"
+            v-for="(leader, index) in boardNLeaders"
             :key="leader.name"
             :class="{ top1: index === 0, top2: index === 1, top3: index === 2 }"
           >
@@ -32,9 +32,14 @@
 </template>
 
 <script>
+import { useUsersStore } from '@/stores/users'
 export default {
   data() {
     return {
+      store: useUsersStore(),
+      allUsers: [],
+      allHighscores: [],
+      boardNLeaders: [],
       boardLeaders: [
         { name: 'King of Kotelett🥩', punkte: 1000 },
         { name: 'Herbert Maier', punkte: 940 },
@@ -54,6 +59,19 @@ export default {
       type: String,
       default: 'Leaderboard',
     },
+  },
+
+  async created() {
+    this.allUsers = await this.store.fetchUsers()
+    this.allHighscores = await this.store.fetchHighscores()
+    for (let scores of this.allHighscores) {
+      for (let user of this.allUsers) {
+        if (scores.userId === user.id) {
+          this.boardNLeaders.push({ name: user.username, punkte: scores.score })
+        }
+      }
+    }
+    this.Leaders = this.boardNLeaders.sort((a, b) => b.punkte - a.punkte)
   },
 }
 </script>
