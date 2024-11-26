@@ -1,24 +1,30 @@
 <template>
   <PageHeader :headerText="'Login-Daten ändern'" />
-  <form @submit.prevent="updateUserDetails">
+
+  <!-- Username Update Form -->
+  <form @submit.prevent="updateUsername">
     <div class="form-group">
       <label for="current-username">Current Username</label>
       <span id="current-username">{{ currentUsername }}</span>
       <label for="new-username">New Username</label>
-      <input v-model="newUsername" type="text" id="new-username" />
-      <MainButton :text="'Save'" />
+      <input v-model="newUsername" type="text" id="new-username" minlength="5" required />
+      <MainButton :text="'speichern'" />
     </div>
+  </form>
+
+  <!-- Password Update Form -->
+  <form @submit.prevent="updatePassword">
     <div class="form-group">
       <label for="current-password">Current Password</label>
       <input v-model="inputCurrentPassword" id="current-password" type="password" />
       <label for="new-password">New Password</label>
-      <input v-model="newPassword" id="new-password" type="text" />
-      <MainButton :text="'Save'" />
+      <input v-model="newPassword" id="new-password" type="password" minlength="8" required />
+      <MainButton :text="'speichern'" />
     </div>
   </form>
-  <div v-if="updateSuccess" class="success-message">Profil erfolgreich aktualisiert!</div>
-  <div v-if="updateError" class="error-message">Das eingegebene Passwort ist falsch.</div>
 
+  <div v-if="updateSuccess" class="success">Profil erfolgreich aktualisiert!</div>
+  <div v-if="updateError" class="error">Das eingegebene Passwort ist falsch.</div>
 </template>
 
 <script>
@@ -43,27 +49,38 @@ export default {
     currentUsername() {
       return this.store.currentUser.username
     },
-    currentPassword() {
-      return this.store.currentUser.password
-    },
   },
   methods: {
-    updateUserDetails() {
+    updateUsername() {
+      const trimmedUsername = this.newUsername.trim()
 
-        if (this.inputCurrentPassword !== this.store.currentUser.password) {
-        this.updateError = true;
-        setTimeout(() => (this.updateError = false), 3000); 
-        return;
-      }
-
-
-      if (this.newPassword && this.newPassword.length < 8) {
-        alert('Das Passwort muss mindestens 8 Zeichen lang sein.')
+      if (!trimmedUsername || /\s/.test(this.newUsername)) {
+        alert('Der Benutzername darf keine Leerzeichen enthalten und nicht leer sein.')
         return
       }
 
-      this.store.updateUserDetails(this.newUsername, this.newPassword)
+      this.store.updateUserDetails(trimmedUsername, null)
       this.newUsername = ''
+      this.updateSuccess = true
+      setTimeout(() => (this.updateSuccess = false), 3000)
+    },
+
+    updatePassword() {
+      const trimmedPassword = this.newPassword.trim()
+
+      if (this.inputCurrentPassword !== this.store.currentUser.password) {
+        this.updateError = true
+        setTimeout(() => (this.updateError = false), 3000)
+        return
+      }
+
+      if (!trimmedPassword || /\s/.test(this.newPassword)) {
+        alert('Das Passwort darf keine Leerzeichen enthalten und nicht leer sein.')
+        return
+      }
+
+      this.store.updateUserDetails(null, trimmedPassword)
+      this.inputCurrentPassword = ''
       this.newPassword = ''
       this.updateSuccess = true
       setTimeout(() => (this.updateSuccess = false), 3000)
@@ -118,7 +135,6 @@ input {
     margin-inline: 3rem;
   }
 
-
   button {
     width: 50%;
     align-self: flex-end;
@@ -133,7 +149,6 @@ input {
     margin-right: 7rem;
   }
 
-
   button {
     width: 50%;
     align-self: flex-end;
@@ -147,7 +162,6 @@ input {
     margin-left: 5rem;
   }
 
- 
   button {
     width: 50%;
     align-self: flex-end;
@@ -168,23 +182,19 @@ input {
   }
 }
 
-.success-message {
+.success {
   color: var(--clr-green-dark);
   background-color: var(--clr-green-light);
   padding: 10px;
-  border-radius: 4px;
   margin-bottom: 15px;
   text-align: center;
 }
 
-.error-message {
+.error {
   color: var(--clr-red);
   background-color: #f8d7da;
   padding: 10px;
-  border-radius: 4px;
   margin-bottom: 15px;
   text-align: center;
 }
-
-
 </style>

@@ -7,13 +7,14 @@
     </div>
     <div class="form-group">
       <label for="password">Passwort</label>
-      <input v-model="password" id="password" type="password" minlength="5" required />
+      <input v-model="password" id="password" type="password" />
     </div>
     <div class="button-class">
-      <a href="#">Passwort vergessen</a>
+      <a href="/forgotpw">Passwort vergessen?</a>
       <MainButton :text="'Einloggen'" type="submit" />
     </div>
   </form>
+  <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
 </template>
 
 <script>
@@ -26,19 +27,40 @@ export default {
     return {
       username: '',
       password: '',
+      errorMessage: '',
     }
   },
   components: { MainButton, PageHeader },
   methods: {
     async loginUser() {
       const store = useUsersStore()
-      await store.login(this.username, this.password)
+
+      try {
+        const userExists = await store.login(this.username, this.password)
+
+        if (!userExists) {
+          this.errorMessage = 'Ungültiges Passwort oder Username'
+        } else {
+          this.errorMessage = ''
+        }
+      } catch (error) {
+        console.error('Login error:', error)
+        this.errorMessage = 'An unexpected error occurred. Please try again.'
+      }
     },
   },
 }
 </script>
 
 <style scoped>
+.error {
+  color: var(--clr-red);
+  background-color: #f8d7da;
+  padding: 10px;
+  margin-top: 4rem;
+  text-align: center;
+}
+
 form {
   display: flex;
   flex-direction: column;

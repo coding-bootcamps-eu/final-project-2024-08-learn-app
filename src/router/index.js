@@ -13,6 +13,7 @@ import Contact from '@/views/Kontakt.vue'
 import Impressum from '@/views/Impressum.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import WelcomeView from '@/views/WelcomeView.vue'
+import ForgotPassword from '@/views/ForgotPassword.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,14 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+      meta: {
+        isPublic: true,
+      },
+    },
+    {
+      path: '/forgotpw',
+      name: 'forgotpw',
+      component: ForgotPassword,
       meta: {
         isPublic: true,
       },
