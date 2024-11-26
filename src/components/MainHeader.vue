@@ -10,18 +10,14 @@
 
     <!-- LOGO, TITEL UND NAVIGATION FÜR DESKTOP -->
     <div class="header__desktop" v-else>
-      <!-- LOGO UND TITEL ZUSAMMEN FÜR DESKTOP -->
       <div class="header__logo-container">
         <router-link to="/home" class="header__logo">
           <img src="@/assets/Logo_Learnified.png" alt="Logo" />
         </router-link>
         <router-link to="/home" class="header__title-desktop">Learnified</router-link>
       </div>
-
-      <!-- NAVIGATION -->
       <nav class="header__nav">
         <router-link v-if="isLoggedIn" to="/categories" class="nav__item">Karteikarten</router-link>
-
         <router-link v-if="isLoggedIn" to="/profile" class="nav__item">Profil</router-link>
         <button v-if="isLoggedIn" @click="logout" class="header__logout">Ausloggen</button>
         <router-link v-if="!isLoggedIn" to="/register" class="nav__item">Registrieren</router-link>
@@ -40,13 +36,20 @@
 
     <!-- MOBILE NAVIGATION -->
     <nav class="header__nav-mobile" :class="{ 'nav--open': menuOpen }" v-if="isMobile">
-      <router-link v-if="isLoggedIn" to="/categories" class="nav__item">Karteikarten</router-link>
-
-      <router-link v-if="isLoggedIn" to="/profile" class="nav__item">Profil</router-link>
-      <button v-if="isLoggedIn" @click="logout" class="header__logout">Ausloggen</button>
-      <router-link v-if="!isLoggedIn" to="/register" class="nav__item">Registrieren</router-link>
+      <router-link v-if="isLoggedIn" to="/categories" class="nav__item" @click="toggleMenu"
+        >Karteikarten</router-link
+      >
+      <router-link v-if="isLoggedIn" to="/profile" class="nav__item" @click="toggleMenu"
+        >Profil</router-link
+      >
+      <button v-if="isLoggedIn" @click="logoutAndCloseMenu" class="header__logout">
+        Ausloggen
+      </button>
+      <router-link v-if="!isLoggedIn" to="/register" class="nav__item" @click="toggleMenu"
+        >Registrieren</router-link
+      >
       <router-link v-if="!isLoggedIn" to="/login">
-        <button class="header__logout">Einloggen</button>
+        <button class="header__logout" @click="toggleMenu">Einloggen</button>
       </router-link>
     </nav>
   </header>
@@ -54,6 +57,7 @@
 
 <script>
 import { useUsersStore } from '@/stores/users'
+
 export default {
   name: 'MainHeader',
   data() {
@@ -75,9 +79,25 @@ export default {
     toggleMenu() {
       this.menuOpen = !this.menuOpen
     },
+    logoutAndCloseMenu() {
+      this.logout()
+      this.menuOpen = false
+    },
     checkIfMobile() {
       this.isMobile = window.innerWidth < 1099
       if (!this.isMobile) {
+        this.menuOpen = false
+      }
+    },
+    closeMenuOnClickOutside(event) {
+      const menu = this.$el.querySelector('.header__nav-mobile')
+      const hamburger = this.$el.querySelector('.header__hamburger')
+      if (
+        this.menuOpen &&
+        menu &&
+        !menu.contains(event.target) &&
+        !hamburger.contains(event.target)
+      ) {
         this.menuOpen = false
       }
     },
@@ -85,9 +105,11 @@ export default {
   mounted() {
     this.checkIfMobile()
     window.addEventListener('resize', this.checkIfMobile)
+    document.addEventListener('click', this.closeMenuOnClickOutside)
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.checkIfMobile)
+    document.removeEventListener('click', this.closeMenuOnClickOutside)
   },
 }
 </script>
@@ -97,7 +119,6 @@ export default {
 @font-face {
   font-family: 'crew69';
   src: url('@/src/assets/fonts/crew.69.ttf') format('ttf');
-  /*  url('@/assets/fonts/roboto.ttf') format('ttf'); */
   font-weight: normal;
   font-style: normal;
 }
@@ -110,6 +131,7 @@ export default {
   padding: 1rem 4.5rem;
   background-color: var(--clr-green-dark);
   color: #fff;
+  margin-bottom: 1.5rem;
 }
 
 /* LOGO UND TITEL FÜR MOBILE ANSICHT */
@@ -161,11 +183,6 @@ export default {
   text-shadow: 3px 3px 10px black;
 }
 
-/* .header__title-desktop:hover {
-  color: rgb(21, 188, 221);
-  transition: 1s ease;
-} */
-
 /* LOGO FÜR DESKTOP */
 .header__logo img {
   height: 50px;
@@ -201,14 +218,20 @@ export default {
 .nav__item {
   text-decoration: none;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.3rem;
+  letter-spacing: 5px;
+  font-weight: 900;
+  text-shadow: 3px 3px 10px black;
 }
 
 .header__logout {
   background: transparent;
   border: none;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.3rem;
+  letter-spacing: 5px;
+  font-weight: 900;
+  text-shadow: 3px 3px 10px black;
   cursor: pointer;
 }
 
@@ -241,7 +264,6 @@ export default {
     display: flex;
   }
 
-  /* DESKTOP NAVIGATION */
   .header__nav {
     display: flex;
     gap: 2rem;
@@ -249,75 +271,18 @@ export default {
     justify-content: flex-start;
   }
 
-  /* MOBILE NAVIGATION UND HAMBURGER AUSGEBLENDET */
   .header__nav-mobile,
   .header__hamburger {
     display: none;
   }
 }
 
-header.main__header {
-  margin-bottom: 3rem;
-}
-
-.nav__item {
-  font-size: 1.3rem;
-  letter-spacing: 5px;
-  font-weight: 900;
-  text-shadow: 3px 3px 10px black;
-}
-
-.header__logout {
-  font-size: 1.3rem;
-  letter-spacing: 5px;
-  font-weight: 900;
-  text-shadow: 3px 3px 10px black;
-}
-
-/* .header__logout:hover {
-  color: red;
-} */
-
-/* .nav__item:hover {
-  color: #00c49a;
-  background-color: black;
-  border-radius: 10px;
-}
-
-.nav__item {
-  position: relative;
-  text-decoration: none;
-  color: #fff;
-  border-radius: 10px;
-  font-size: 1rem;
-  overflow: hidden;
-}
-
-.nav__item::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -100%;
-  width: 200%;
-  height: 200%;
-  background-color: white;
-  border-radius: 10px;
-  opacity: 50%;
-  transform: rotate(-15deg);
-  transition: left 0.3s ease;
-  z-index: 1;
-}
-
-.nav__item:hover::before {
-  left: 0;
-} */
-
 @media (max-width: 768px) {
   header.main__header {
     padding: 1rem;
   }
 
-  div.header__logo-title {
+  .header__logo-title {
     justify-content: flex-start;
   }
 
