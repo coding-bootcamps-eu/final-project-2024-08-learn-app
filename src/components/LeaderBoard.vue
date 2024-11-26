@@ -69,7 +69,7 @@ export default {
   max-width: 800px;
   background-color: #f7f9fc;
   border: 3px solid var(--clr-green-dark);
-  border-radius: 8px;
+  border-radius: 1.5rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }

@@ -228,6 +228,7 @@ export default {
 .header__nav-mobile.nav--open {
   display: flex;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
+  z-index: 10;
 }
 
 /* DESKTOP-STYLING AB 1100px */
