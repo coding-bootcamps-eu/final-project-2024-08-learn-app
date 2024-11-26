@@ -98,14 +98,15 @@ thead th {
 
 tbody tr {
   transition: background-color 0.3s ease;
-}
-
-tbody tr:hover {
   background-color: rgba(0, 128, 0, 0.1);
 }
 
+/* tbody tr:hover {
+  background-color: rgba(0, 128, 0, 0.1);
+} */
+
 tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #dcdada;
 }
 
 tbody tr td {
