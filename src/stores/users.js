@@ -165,21 +165,17 @@ export const useUsersStore = defineStore('user', {
     },
 
     async login(username, password) {
-      try {
-        const users = await this.fetchUsers()
-        const user = users.find((user) => user.username === username && user.password === password)
-
-        if (user) {
-          this.currentUser = user
-          localStorage.setItem('currentUser', JSON.stringify(user))
-          router.push('/home')
-        } else {
-          throw new Error('Invalid username or password')
-        }
-      } catch (error) {
-        console.error('Login error:', error)
+      const users = await this.fetchUsers();
+      const user = users.find(u => u.username === username && u.password === password);
+      if (user) {
+        this.currentUser = user;
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        router.push('/home');
+        return true;
       }
+      return false;
     },
+    
     logout() {
       localStorage.removeItem('currentUser')
       this.currentUser = { username: '', password: '' }

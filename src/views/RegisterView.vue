@@ -35,10 +35,25 @@ export default {
   components: { MainButton, PageHeader },
   methods: {
     async handleRegister() {
+      const trimmedUsername = this.username.trim()
+      const trimmedEmail = this.email.trim()
+      const trimmedPassword = this.password.trim()
+
+      // Validation checks
+      if (!trimmedUsername || /\s/.test(this.username)) {
+        alert('Der Benutzername darf keine Leerzeichen enthalten und nicht leer sein.')
+        return
+      }
+
+      if (!trimmedPassword || /\s/.test(this.password)) {
+        alert('Das Passwort darf keine Leerzeichen enthalten und nicht leer sein.')
+        return
+      }
+
       const newUser = {
-        username: this.username,
-        email: this.email,
-        password: this.password,
+        username: trimmedUsername,
+        email: trimmedEmail,
+        password: trimmedPassword,
       }
 
       const usersStore = useUsersStore()
@@ -46,6 +61,10 @@ export default {
       try {
         await usersStore.register(newUser)
         alert('Registrierung erfolgreich!')
+
+        this.username = ''
+        this.email = ''
+        this.password = ''
       } catch (error) {
         alert('Registrierung fehlgeschlagen. Bitte versuche es erneut.')
         console.error(error)
