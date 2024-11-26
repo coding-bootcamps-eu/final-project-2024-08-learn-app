@@ -34,6 +34,7 @@ export default {
   text-align: center;
   padding: 20px 0;
   font-size: 14px;
+  margin-top: 1.5rem;
 }
 
 .footer-content {
