@@ -113,6 +113,11 @@ a {
     font-size: 0.9rem;
     margin-inline: 3rem;
   }
+  button {
+    align-self: flex-end;
+    margin-top: 10px;
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -121,6 +126,12 @@ a {
     margin-left: 5rem;
     margin-right: 7rem;
   }
+  button {
+    align-self: flex-end;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    padding-block: 0.5rem;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1279px) {
@@ -128,12 +139,24 @@ a {
     font-size: 1.1rem;
     margin-left: 5rem;
   }
+  button {
+    align-self: flex-end;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    padding-block: 0.5rem;
+  }
 }
 
 @media (min-width: 1280px) {
   form {
     font-size: 1.2rem;
     margin-left: 5rem;
+  }
+  button {
+    align-self: flex-end;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    padding-block: 0.5rem;
   }
 }
 </style>
