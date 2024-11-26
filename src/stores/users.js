@@ -8,7 +8,7 @@ export const useUsersStore = defineStore('user', {
         username: '',
         password: '',
         email: '',
-        points: '',
+        score: '',
         lastCategory: '',
       },
       categories: [],
@@ -165,17 +165,17 @@ export const useUsersStore = defineStore('user', {
     },
 
     async login(username, password) {
-      const users = await this.fetchUsers();
-      const user = users.find(u => u.username === username && u.password === password);
+      const users = await this.fetchUsers()
+      const user = users.find((u) => u.username === username && u.password === password)
       if (user) {
-        this.currentUser = user;
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        router.push('/home');
-        return true;
+        this.currentUser = user
+        localStorage.setItem('currentUser', JSON.stringify(user))
+        router.push('/home')
+        return true
       }
-      return false;
+      return false
     },
-    
+
     logout() {
       localStorage.removeItem('currentUser')
       this.currentUser = { username: '', password: '' }

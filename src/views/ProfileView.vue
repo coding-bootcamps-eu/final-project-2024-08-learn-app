@@ -136,9 +136,9 @@ input {
   }
 
   button {
-    width: 50%;
     align-self: flex-end;
     margin-top: 10px;
+    font-size: 1rem;
   }
 }
 
@@ -150,9 +150,9 @@ input {
   }
 
   button {
-    width: 50%;
     align-self: flex-end;
     margin-top: 10px;
+    font-size: 1rem;
   }
 }
 
@@ -163,9 +163,10 @@ input {
   }
 
   button {
-    width: 50%;
     align-self: flex-end;
     margin-top: 10px;
+    font-size: 1.1rem;
+    padding-block: 0.5rem;
   }
 }
 
@@ -176,9 +177,10 @@ input {
   }
 
   button {
-    width: 50%;
     align-self: flex-end;
     margin-top: 10px;
+    font-size: 1.1rem;
+    padding-block: 0.5rem;
   }
 }
 
