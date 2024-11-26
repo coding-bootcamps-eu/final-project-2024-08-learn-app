@@ -8,12 +8,12 @@
 
 @font-face {
   font-family: Roboto;
-  src: url('src/assets/fonts/Roboto-Regular.ttf');
+  src: url('./fonts/Roboto-Regular.ttf');
 }
 
 @font-face {
   font-family: Crew69;
-  src: url('src/assets/fonts/crew.69.ttf');
+  src: url('./fonts/crew.69.ttf');
 }
 
 :root {
