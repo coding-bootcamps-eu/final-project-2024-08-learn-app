@@ -1,36 +1,36 @@
 <template>
-  <div class="card-container" >
-  <div class="card-wrapper">
-    <section class="main-card">
-      <h1>{{ cardHeader }}</h1>
-      <p class="card-text">{{ cardText }}</p>
-      <nav class="colors">
-        <RouterLink class="rlink rlink-left" v-show="showLeft" :to="targetLeft">{{
-          textLeft
-        }}</RouterLink>
-        <RouterLink class="rlink rlink-right" v-show="showRight" :to="targetRight">{{
-          textRight
-        }}</RouterLink>
-      </nav>
-    </section>
-    <p class="last-used"><em>Zuletzt verwendet</em></p>
+  <div class="card-container">
+    <div class="card-wrapper">
+      <section class="main-card">
+        <h1>{{ cardHeader }}</h1>
+        <p class="card-text">{{ cardText }}</p>
+        <nav class="colors">
+          <RouterLink class="rlink rlink-left" v-show="showLeft" :to="targetLeft">{{
+            textLeft
+          }}</RouterLink>
+          <RouterLink class="rlink rlink-right" v-show="showRight" :to="targetRight">{{
+            textRight
+          }}</RouterLink>
+        </nav>
+      </section>
+      <p class="last-used"><em>Zuletzt verwendet</em></p>
 
-    <div class="card-footer">
-      <p class="last-used-cat">JavaScript</p>
-      <div>
-        <RouterLink
-          class="r-footer-link r-footerlink-left"
-          v-show="showFooterLeft"
-          :to="targetFooterLeft"
-          >{{ textFooterLeft }}</RouterLink
-        >
-        <p class="user-points" v-show="showUserPoints">{{ userPoints }} Punkte</p>
-        <RouterLink class="r-footer-link r-footerlink-right" :to="targetFooterRight">{{
-          textFooterRight
-        }}</RouterLink>
+      <div class="card-footer">
+        <p class="last-used-cat">JavaScript</p>
+        <div>
+          <RouterLink
+            class="r-footer-link r-footerlink-left"
+            v-show="showFooterLeft"
+            :to="targetFooterLeft"
+            >{{ textFooterLeft }}</RouterLink
+          >
+          <p class="user-points" v-show="showUserPoints">{{ userPoints }} Punkte</p>
+          <RouterLink class="r-footer-link r-footerlink-right" :to="targetFooterRight">{{
+            textFooterRight
+          }}</RouterLink>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -67,12 +67,10 @@ export default {
 
     showRight: {
       type: Boolean,
-
     },
 
     showLeft: {
       type: Boolean,
-
     },
 
     showFooterLeft: {
@@ -103,8 +101,8 @@ export default {
 </script>
 
 <style scoped>
-.card-container{
-  container-type:inline-size;
+.card-container {
+  container-type: inline-size;
 }
 
 .card-wrapper {
@@ -122,6 +120,7 @@ export default {
   border: 3px solid var(--clr-green-dark);
   color: white;
   background-color: var(--clr-green-dark);
+  border-radius: 0.5rem;
 }
 
 .card-footer {
@@ -192,4 +191,3 @@ nav {
   }
 }
 </style>
-
