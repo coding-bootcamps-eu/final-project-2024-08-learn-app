@@ -310,4 +310,18 @@ header.main__header {
 .nav__item:hover::before {
   left: 0;
 } */
+
+@media (max-width: 768px) {
+  header.main__header {
+    padding: 1rem;
+  }
+
+  div.header__logo-title {
+    justify-content: flex-start;
+  }
+
+  .header__logo-title .header__logo img {
+    margin-right: 0.5rem;
+  }
+}
 </style>
