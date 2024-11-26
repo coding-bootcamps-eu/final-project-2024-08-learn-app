@@ -3,11 +3,7 @@
     <page-header class="page-header" headerText="Lernmodus" />
     <div class="card-container shared-width">
       <!-- Frage wird dynamisch eingebunden -->
-      <index-card
-        class="question-card"
-        v-if="currentCard"
-        :text="currentCard.question"
-      />
+      <index-card class="question-card" v-if="currentCard" :text="currentCard.question" />
       <!-- Antwort wird dynamisch eingebunden -->
       <index-card
         class="answer-card mt-1"
@@ -83,16 +79,16 @@ export default {
     },
   },
   async created() {
-      console.log(this.categoryId)
-    if (this.categoryId === "all") {
-      const categories = await this.store.fetchCategoryWithCards(this.categoryId);
-      this.currentCategory.cards = categories.flatMap((category) => category.cards);
+    console.log(this.categoryId)
+    if (this.categoryId === 'all') {
+      const categories = await this.store.fetchCategoryWithCards(this.categoryId)
+      this.currentCategory.cards = categories.flatMap((category) => category.cards)
     } else {
       try {
-      this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId);
-    } catch (error) {
-      console.error("Fehler beim Laden der Kategorie:", error);
-    }
+        this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId)
+      } catch (error) {
+        console.error('Fehler beim Laden der Kategorie:', error)
+      }
     }
   },
 }
@@ -182,7 +178,8 @@ a {
   .card-container {
     justify-content: space-between;
   }
-  .question-card, .answer-card {
+  .question-card,
+  .answer-card {
     min-width: 350px;
     max-width: 350px;
     min-height: 245px;

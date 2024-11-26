@@ -164,6 +164,12 @@ export const useUsersStore = defineStore('user', {
       return await response.json()
     },
 
+    async fetchHighscores() {
+      const response = await fetch('http://localhost:3010/highscores/')
+      if (!response.ok) throw new Error('Failed to fetch highscores')
+      return await response.json()
+    },
+
     async login(username, password) {
       const users = await this.fetchUsers()
       const user = users.find((u) => u.username === username && u.password === password)

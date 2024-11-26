@@ -84,15 +84,14 @@ export default {
   height: 2.5cqw;
   accent-color: var(--clr-green-dark);
 }
-.radio-button:focus{
-  color:var(--clr-green-light);
-  accent-color:var(--clr-green-light);
+.radio-button:focus {
+  color: var(--clr-green-light);
+  accent-color: var(--clr-green-light);
   outline: none;
   outline-width: 0;
   box-shadow: none;
   border: none;
 }
-
 
 @media (min-width: 768px) {
 }
