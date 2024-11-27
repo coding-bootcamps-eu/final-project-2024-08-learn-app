@@ -57,7 +57,6 @@
       <main-button text="Falsch" colors="orange" @click="submitAnswer(false)" />
     </section>
 
-    <router-link :to="'/'" class="exit">Exit</router-link>
   </main>
 </template>
 
@@ -269,15 +268,6 @@ a {
   color: var(--clr-green-dark);
 }
 
-.exit {
-  position: fixed;
-  bottom: 7em;
-  right: 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  text-decoration: none;
-}
-
 @media (min-width: 475px) {
   .card {
     aspect-ratio: 10 / 7;
@@ -302,11 +292,6 @@ a {
 @media (min-width: 850px) {
   .shared-width {
     max-width: 500px;
-  }
-
-  .exit {
-    right: auto;
-    left: 30rem;
   }
 
   .answer-count {
