@@ -1,11 +1,12 @@
 <template>
-  <h1>Willkommen in unserer App!</h1>
+  <h1>Willkommen in unserer App! &#128522;</h1>
   <p>
     Mit dieser App kannst du dein Wissen in HTML&CSS sowie JavaScript als auch Vue.js testen und
-    lernen.<br /><br />Im Quiz kannst du Punkte ergattern und dich im Leaderboard mit anderen
-    User_innen messen.<br /><br />
-    Du kannst sogar selbst Karten hinzufügen und somit dein Wissen immer weiter vergrößern.<br />
-    <br />Viel Spaß damit!
+    lernen. &#129504;<br /><br />Im Quiz kannst du Punkte ergattern und dich im Leaderboard mit
+    anderen User_innen messen. 💪 <br /><br />
+    Du kannst sogar selbst Karten hinzufügen und somit dein Wissen immer weiter vergrößern.
+    &#129299;<br />
+    <br />Viel Spaß damit! &#127881;
   </p>
 </template>
 
