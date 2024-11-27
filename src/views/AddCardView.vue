@@ -22,11 +22,12 @@
       placeholder="Bitte eine Frage eingeben..."
       :showBtnLastCard="showPager"
       :showBtnNextCard="showPager"
-      :showBtnAddCard="false"
+      :showBtnDelCard="showDelCard"
       :cardText="questionText || questionInput"
       @inputText="getQuestion"
       @lastBtn="cardBack"
       @nextBtn="cardAhead"
+      @delBtn="deleteCard"
     />
     <AnswersCard
       :showRight="true"
@@ -81,13 +82,14 @@ export default {
       answerOneText: '',
       answerTwoText: '',
       answerThreeText: '',
-      addButtonText: 'Karte hinzfügen',
+      addButtonText: 'Karte hinzufügen',
       // buttonInactive: true,
       actCategoryTitle: '',
       actCategoryId: '',
       store: useUsersStore(),
       showPager: false,
       showAddCard: true,
+      showDelCard: false,
       answerOk: false,
       questionOk: false,
       actIndex: 0,
@@ -129,6 +131,13 @@ export default {
   },
 
   methods: {
+    async deleteCard() {
+      console.log(this.actCard.id)
+      await this.store.deleteCard(this.actCard.id)
+      this.clearCard()
+      this.currentCategory = await this.store.fetchCategoryWithCards(this.categoryId)
+      this.cards = this.currentCategory.cards
+    },
     // Eingegebenen Fragetext speichern falls länger als 0
     getQuestion(txt) {
       if (txt.length > 0) {
@@ -186,6 +195,7 @@ export default {
 
     //Add Mode initialisieren
     addMode() {
+      this.showDelCard = false
       this.showPager = false
       this.addButtonText = 'Karte hinzufügen'
       //Edit Mode ist gewählt
@@ -265,6 +275,7 @@ export default {
 
     // Setup für den Edit Mode
     async setupEditMode() {
+      this.showDelCard = true
       // vorwärts/rückwärts Buttons anzeigen
       this.showPager = true
       // Button Text anpassen

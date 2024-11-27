@@ -17,7 +17,7 @@
         <!-- Insgesamt gibt es in dieser Kategorie {{ questions.length }} Fragen. -->
       </p>
     </index-card>
-    <p v-if="questions.length === 0" class="loading">Lade Frage...</p>                                                   
+    <p v-if="questions.length === 0" class="loading">Lade Frage...</p>
   </main>
 </template>
 
@@ -50,9 +50,8 @@ export default {
     },
   },
   async mounted() {
-  console.log('Current User:', this.store.currentUser);
   const highscores = await this.store.fetchHighscores(); // Die Highscores werden jetzt zurückgegeben
-  console.log('Highscores:', highscores); // Diese sollten nun korrekt angezeigt werden
+  // Diese sollten nun korrekt angezeigt werden
   this.loadCategoryQuestions(this.categoryId);
 },
   methods: {
@@ -82,7 +81,7 @@ export default {
   },
 },
 }
-</script>   
+</script>
 
 <style scoped>
 /* Stile für das Quiz */
