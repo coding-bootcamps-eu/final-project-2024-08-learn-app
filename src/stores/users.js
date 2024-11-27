@@ -26,7 +26,7 @@ export const useUsersStore = defineStore('user', {
   actions: {
     async fetchCategories() {
       try {
-        const response = await fetch('http://localhost:3010/categories')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`)
         if (!response.ok) throw new Error('Fehler beim Laden der Kategorien')
         this.categories = await response.json()
       } catch (error) {
@@ -39,10 +39,10 @@ export const useUsersStore = defineStore('user', {
         let response
         if (id === 'all') {
           response = await fetch(
-            'http://localhost:3010/categories/?id=48261793&id=93847210&id=27491837&_embed=cards',
+            `${import.meta.env.VITE_API_URL}/categories/?id=48261793&id=93847210&id=27491837&_embed=cards`,
           )
         } else {
-          response = await fetch('http://localhost:3010/categories/' + id + '?_embed=cards')
+          response = await fetch(`${import.meta.env.VITE_API_URL}/categories/${id}?_embed=cards`)
         }
         if (!response.ok) throw new Error('Fehler beim Laden der Kategorien mit Karten')
         return await response.json()
@@ -53,7 +53,7 @@ export const useUsersStore = defineStore('user', {
 
     async addCategory(newCategory) {
       try {
-        const response = await fetch('http://localhost:3010/categories', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export const useUsersStore = defineStore('user', {
 
     async updateCategory(id, updatedCategory) {
       try {
-        const response = await fetch(`http://localhost:3010/categories/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/categories/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export const useUsersStore = defineStore('user', {
 
     async deleteCategory(id) {
       try {
-        const response = await fetch(`http://localhost:3010/categories/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/categories/${id}`, {
           method: 'DELETE',
         })
         if (!response.ok) throw new Error('Fehler beim Löschen der Kategorie')
@@ -102,7 +102,7 @@ export const useUsersStore = defineStore('user', {
 
     async fetchLearningCard() {
       try {
-        const response = await fetch('http://localhost:3010/cards')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/cards`)
         if (!response.ok) throw new Error('Fehler beim Laden der Lernkarten')
         this.learningCards = await response.json()
       } catch (error) {
@@ -112,7 +112,7 @@ export const useUsersStore = defineStore('user', {
 
     async addCard(newCard) {
       try {
-        const response = await fetch('http://localhost:3010/cards', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/cards`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ export const useUsersStore = defineStore('user', {
 
     async updateCard(id, updatedCard) {
       try {
-        const response = await fetch(`http://localhost:3010/cards/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/cards/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export const useUsersStore = defineStore('user', {
 
     async deleteCard(id) {
       try {
-        const response = await fetch(`http://localhost:3010/cards/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/cards/${id}`, {
           method: 'DELETE',
         })
         if (!response.ok) throw new Error('Fehler beim Löschen der Karte')
@@ -160,14 +160,8 @@ export const useUsersStore = defineStore('user', {
     },
 
     async fetchUsers() {
-      const response = await fetch('http://localhost:3010/users/')
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/`)
       if (!response.ok) throw new Error('Failed to fetch users')
-      return await response.json()
-    },
-
-    async fetchHighscores() {
-      const response = await fetch('http://localhost:3010/highscores/')
-      if (!response.ok) throw new Error('Failed to fetch highscores')
       return await response.json()
     },
 
@@ -188,6 +182,7 @@ export const useUsersStore = defineStore('user', {
       this.currentUser = { username: '', password: '' }
       router.push('/login')
     },
+
     async updateUserDetails(newUsername, newPassword) {
       if (newUsername) this.currentUser.username = newUsername
       if (newPassword) this.currentUser.password = newPassword
@@ -195,7 +190,7 @@ export const useUsersStore = defineStore('user', {
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
 
       try {
-        const response = await fetch(`http://localhost:3010/users/${this.currentUser.id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${this.currentUser.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -214,15 +209,17 @@ export const useUsersStore = defineStore('user', {
         console.error(error)
       }
     },
+
     initializeUser() {
       const storedUser = JSON.parse(localStorage.getItem('currentUser'))
       if (storedUser) {
         this.currentUser = storedUser
       }
     },
+
     async register(newUser) {
       try {
-        const response = await fetch('http://localhost:3010/users', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -244,53 +241,49 @@ export const useUsersStore = defineStore('user', {
 
     async fetchHighscores() {
       try {
-        const response = await fetch('http://localhost:3010/highscores');
-        if (!response.ok) throw new Error('Failed to fetch highscores');
-        this.highscores = await response.json();
-        return this.highscores; // Hier zurückgeben
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/highscores`)
+        if (!response.ok) throw new Error('Failed to fetch highscores')
+        this.highscores = await response.json()
+        return this.highscores
       } catch (error) {
-        console.error('Failed to fetch highscores:', error);
-        return []; // Oder eine leere Liste zurückgeben, wenn ein Fehler auftritt
+        console.error('Failed to fetch highscores:', error)
+        return []
       }
     },
 
     async updateHighscore(userId, points) {
       try {
-        // Highscores aus dem Server laden
-        const response = await fetch('http://localhost:3010/highscores');
-        if (!response.ok) throw new Error('Failed to fetch highscores');
-        const highscores = await response.json();
-    
-        // Nachsehen, ob der User bereits im Highscore-Array existiert
-        let userHighscore = highscores.find(hs => hs.userId === userId);
-    
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/highscores`)
+        if (!response.ok) throw new Error('Failed to fetch highscores')
+        const highscores = await response.json()
+
+        let userHighscore = highscores.find(hs => hs.userId === userId)
+
         if (userHighscore) {
-          // Highscore des Users aktualisieren
-          userHighscore.score += points;
-          await fetch(`http://localhost:3010/highscores/${userHighscore.id}`, {
+          userHighscore.score += points
+          await fetch(`${import.meta.env.VITE_API_URL}/highscores/${userHighscore.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userHighscore),
-          });
+          })
         } else {
-          // Neues Highscore-Objekt erstellen
           const newHighscore = {
-            id: highscores.length + 1, // Nächste ID basierend auf der Array-Länge
+            id: highscores.length + 1,
             userId: userId,
-            categoryId: "0", // Standardkategorie, kann angepasst werden
+            categoryId: "0",
             score: points,
             answerHistory: [],
-          };
-    
-          await fetch('http://localhost:3010/highscores', {
+          }
+
+          await fetch(`${import.meta.env.VITE_API_URL}/highscores`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newHighscore),
-          });
+          })
         }
       } catch (error) {
-        console.error('Failed to update highscore:', error);
+        console.error('Failed to update highscore:', error)
       }
-    }, 
-  } 
-}); 
+    },
+  },
+})
