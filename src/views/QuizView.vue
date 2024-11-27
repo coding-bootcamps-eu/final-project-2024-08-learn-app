@@ -128,22 +128,6 @@ main {
   margin-top: 1.25rem;
 }
 
-.exit {
-  position: fixed;
-  bottom: 6rem;
-  right: calc(1rem + 2vw);
-
-  cursor: pointer;
-
-  text-decoration: none;
-
-  font-size: clamp(1rem, 1vw + 0.5rem, 1.5rem);
-  color: var(--clr-green-dark);
-}
-
-.exit:hover {
-  color: var(--clr-red);
-}
 
 @media (min-width: 768px) {
   .page-header {
@@ -156,31 +140,10 @@ main {
     max-width: 700px;
   }
 
-  .exit {
-    right: calc(1rem + 1vw);
-    bottom: calc(6rem + 5vh);
-  }
 
   a {
     font-weight: 300;
   }
 }
 
-@media (min-width: 900px) {
-  .exit {
-    right: calc(1rem + 15vw);
-  }
-}
-
-@media (min-width: 1125px) {
-  .exit {
-    right: calc(1rem + 31vw);
-  }
-}
-
-@media (min-width: 1300px) {
-  .exit {
-    right: calc(1rem + 42vw);
-  }
-}
 </style>
