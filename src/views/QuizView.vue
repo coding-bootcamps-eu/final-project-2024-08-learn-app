@@ -17,9 +17,7 @@
         <!-- Insgesamt gibt es in dieser Kategorie {{ questions.length }} Fragen. -->
       </p>
     </index-card>
-    <p v-if="questions.length === 0" class="loading">Lade Frage...</p>
-
-    <router-link :to="'/'" class="exit">Exit</router-link>
+    <p v-if="questions.length === 0" class="loading">Lade Frage...</p>                                                   
   </main>
 </template>
 
@@ -41,16 +39,22 @@ export default {
       questions: [],
       currentIndex: 0,
       rightAnswers: 0,
-    }
+    };
   },
   computed: {
+    currentUser() {
+      return this.store.currentUser;
+    },
     categoryId() {
-      return this.$route.params.id
+      return this.$route.params.id;
     },
   },
-  mounted() {
-    this.loadCategoryQuestions(this.categoryId)
-  },
+  async mounted() {
+  console.log('Current User:', this.store.currentUser);
+  const highscores = await this.store.fetchHighscores(); // Die Highscores werden jetzt zurückgegeben
+  console.log('Highscores:', highscores); // Diese sollten nun korrekt angezeigt werden
+  this.loadCategoryQuestions(this.categoryId);
+},
   methods: {
     async loadCategoryQuestions(categoryId) {
       if (categoryId === 'all') {
@@ -65,19 +69,41 @@ export default {
         }
       }
     },
-    nextQuestion(isCorrect) {
-      // Wenn die Antwort korrekt ist, rightAnswers erhöhen
-      if (isCorrect) {
-        this.rightAnswers++
-      }
-      // Zur nächsten Frage gehen
-      if (this.currentIndex < this.questions.length - 1) {
-        this.currentIndex++
-      }
-    },
+    async nextQuestion(isCorrect) {
+    if (isCorrect) {
+      this.rightAnswers++;
+      // Highscore aktualisieren, wenn die Antwort korrekt ist
+      await this.store.updateHighscore(this.currentUser.id, 10);
+    }
+    // Zur nächsten Frage wechseln
+    if (this.currentIndex < this.questions.length - 1) {
+      this.currentIndex++;
+    }
   },
+},
 }
-</script>
+</script>   
+
+<style scoped>
+/* Stile für das Quiz */
+.page-header {
+  margin-bottom: 20px;
+}
+
+.index-card {
+  margin: 20px auto;
+}
+
+.display {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5em;
+}
+</style>
 
 <style scoped>
 main {

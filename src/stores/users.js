@@ -13,6 +13,7 @@ export const useUsersStore = defineStore('user', {
       },
       categories: [],
       learningCards: [],
+      highscore: {},
     }
   },
 
@@ -240,5 +241,56 @@ export const useUsersStore = defineStore('user', {
         throw error
       }
     },
-  },
-})
+
+    async fetchHighscores() {
+      try {
+        const response = await fetch('http://localhost:3010/highscores');
+        if (!response.ok) throw new Error('Failed to fetch highscores');
+        this.highscores = await response.json();
+        return this.highscores; // Hier zurückgeben
+      } catch (error) {
+        console.error('Failed to fetch highscores:', error);
+        return []; // Oder eine leere Liste zurückgeben, wenn ein Fehler auftritt
+      }
+    },
+
+    async updateHighscore(userId, points) {
+      try {
+        // Highscores aus dem Server laden
+        const response = await fetch('http://localhost:3010/highscores');
+        if (!response.ok) throw new Error('Failed to fetch highscores');
+        const highscores = await response.json();
+    
+        // Nachsehen, ob der User bereits im Highscore-Array existiert
+        let userHighscore = highscores.find(hs => hs.userId === userId);
+    
+        if (userHighscore) {
+          // Highscore des Users aktualisieren
+          userHighscore.score += points;
+          await fetch(`http://localhost:3010/highscores/${userHighscore.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userHighscore),
+          });
+        } else {
+          // Neues Highscore-Objekt erstellen
+          const newHighscore = {
+            id: highscores.length + 1, // Nächste ID basierend auf der Array-Länge
+            userId: userId,
+            categoryId: "0", // Standardkategorie, kann angepasst werden
+            score: points,
+            answerHistory: [],
+          };
+    
+          await fetch('http://localhost:3010/highscores', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newHighscore),
+          });
+        }
+      } catch (error) {
+        console.error('Failed to update highscore:', error);
+      }
+    }, 
+  } 
+}); 
