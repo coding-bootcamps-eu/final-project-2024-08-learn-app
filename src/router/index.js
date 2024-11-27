@@ -1,19 +1,19 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import { useUsersStore } from '@/stores/users'
-import HomeView from '../views/HomeView.vue'
-import TestView from '@/views/TestView.vue'
-import CategoriesView from '@/views/CategoriesView.vue'
-import LoginView from '@/views/LoginView.vue'
-import LearnView from '@/views/LearnView.vue'
-import ProfileView from '@/views/ProfileView.vue'
-import AddCardView from '@/views/AddCardView.vue'
-import QuizView from '@/views/QuizView.vue'
-import Datenschutz from '@/views/Datenschutz.vue'
-import Contact from '@/views/Kontakt.vue'
-import Impressum from '@/views/Impressum.vue'
-import RegisterView from '@/views/RegisterView.vue'
-import WelcomeView from '@/views/WelcomeView.vue'
-import ForgotPassword from '@/views/ForgotPassword.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import { useUsersStore } from '@/stores/users';
+import HomeView from '../views/HomeView.vue';
+import TestView from '@/views/TestView.vue';
+import CategoriesView from '@/views/CategoriesView.vue';
+import LoginView from '@/views/LoginView.vue';
+import LearnView from '@/views/LearnView.vue';
+import ProfileView from '@/views/ProfileView.vue';
+import AddCardView from '@/views/AddCardView.vue';
+import QuizView from '@/views/QuizView.vue';
+import Datenschutz from '@/views/Datenschutz.vue';
+import Contact from '@/views/Kontakt.vue';
+import Impressum from '@/views/Impressum.vue';
+import RegisterView from '@/views/RegisterView.vue';
+import WelcomeView from '@/views/WelcomeView.vue';
+import ForgotPassword from '@/views/ForgotPassword.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -105,29 +105,44 @@ const router = createRouter({
       component: Impressum,
     },
   ],
-})
+});
 
-router.beforeEach(function (to) {
-  const isLoggedIn = useUsersStore().isLoggedIn
+router.beforeEach((to, from, next) => {
+  const store = useUsersStore();
+  const isLoggedIn = store.isLoggedIn;
 
   // Ist User eingeloggt?
   if (!isLoggedIn) {
     // Ist die Route öffentlich?
     if (to.meta.isPublic) {
       // Wenn ja: Nichts machen
-      return
+      return next();
     } else {
-      // Wenn nicht öffentlich: Weiterleiten auf /login
-      return router.push('/welcome')
+      // Wenn nicht öffentlich: Weiterleiten auf /welcome
+      return next('/welcome');
     }
-    // Wenn User eingeloggt
   } else {
-    // Versucht auf /login zu gehen
+    // Ist der User eingeloggt und geht zu /login
     if (to.fullPath === '/login') {
-      // Weiterleiten auf /
-      return router.push('/home')
+      return next('/home');
     }
   }
-})
 
-export default router
+  // Kategorie-Handling
+  const categoryRoutes = ['/test/', '/learn/', '/quiz/'];
+  const matchedRoute = categoryRoutes.find((route) => to.path.startsWith(route));
+
+  if (matchedRoute) {
+    const categoryId = to.params.id;
+    const category = store.categories.find((cat) => cat.id === categoryId);
+
+    if (category) {
+      store.currentUser.lastCategory = category.title;
+      store.updateUserDetails(store.currentUser.username, null);
+    }
+  }
+
+  next();
+});
+
+export default router;
