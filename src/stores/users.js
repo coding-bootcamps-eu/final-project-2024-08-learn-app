@@ -8,8 +8,8 @@ export const useUsersStore = defineStore('user', {
         username: '',
         password: '',
         email: '',
-        score: '',
-        lastCategory: '',
+        lastScore: '',
+        lastPlayed: '',
       },
       categories: [],
       learningCards: [],
@@ -266,6 +266,7 @@ export const useUsersStore = defineStore('user', {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userHighscore),
           })
+          })
         } else {
           const newHighscore = {
             id: highscores.length + 1,
@@ -280,10 +281,15 @@ export const useUsersStore = defineStore('user', {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newHighscore),
           })
+          })
         }
       } catch (error) {
         console.error('Failed to update highscore:', error)
+        console.error('Failed to update highscore:', error)
       }
+    },
+  },
+})
     },
   },
 })
