@@ -9,17 +9,18 @@
       :showRight="true"
       :showLeft="true"
       :cardText="this.text1"
+      :text-last-category="lastCategoryText"
       class="index-cards"
       cardHeader="Karteikarten"
       textLeft="Hinzufügen"
       textRight="Kategorie wählen"
       textFooterLeft="Lernen"
       textFooterRight="Testen"
-      :targetLeft="this.addLink"
+      :targetLeft="'/addcard/' + getCategoryId"
       :targetRight="this.categoryLink"
-      :targetFooterLeft="this.learnLink"
-      :targetFooterRight="this.testLink"
-      :userPoints="this.userPoints"
+      :targetFooterLeft="'/learn/' + getCategoryId"
+      :targetFooterRight="'/test/' + getCategoryId"
+      :userPoints="lastUserPoints"
       :showUserPoints="false"
       :showFooterLeft="true"
     />
@@ -27,17 +28,18 @@
       :showRight="true"
       :showLeft="false"
       :cardText="this.text2"
+      :text-last-category="lastCategoryText"
       class="quiz-box"
       cardHeader="Quizbox"
       textLeft="Hinzufügen"
       textRight="Quiz starten"
       textFooterLeft="Hinzufügen"
       textFooterRight="Starten"
-      :targetLeft="this.quizLink"
-      :targetRight="this.quizLink"
-      :userPoints="this.userPoints"
-      :targetFooterLeft="this.quizLink"
-      :targetFooterRight="this.quizLink"
+      :targetLeft="'/quiz/' + getCategoryId"
+      :targetRight="'/quiz/' + getCategoryId"
+      :userPoints="lastUserPoints"
+      :targetFooterLeft="'/quiz/' + getCategoryId"
+      :targetFooterRight="'/quiz/' + getCategoryId"
       :showUserPoints="true"
       :showFooterLeft="false"
     />
@@ -58,13 +60,9 @@ export default {
         'Lerne mit Karteikarten oder teste dich selber. Dir fehlen Fragen oder Themen? Dann füge sie einfach selber hinzu.',
       text2:
         'Starte ein Quiz, um dein Wissen zu testen. Wähle eine oder mehrere Kategorien und jage den Highscore.',
-      addLink: { name: 'home' },
       categoryLink: { name: 'categories' },
-      learnLink: { name: 'home' },
-      testLink: { name: 'home' },
-      userPoints: '1500',
-      showUserPoints: false,
-      username: 'King of Kotelett',
+      lastCategoryText: '',
+      lastUserPoints: '',
       store: useUsersStore(),
     }
   },
@@ -77,6 +75,31 @@ export default {
     makeHeaderText() {
       return 'Hallo ' + this.store.currentUser.username + '! 👋'
     },
+
+    getCategoryId() {
+      return this.store.currentUser.lastPlayed
+    },
+  },
+  methods: {
+    async setCategoryText() {
+      let text = await this.store.fetchCategoryWithCards(this.store.currentUser.lastPlayed)
+      this.lastCategoryText = text.title
+    },
+
+    async setUserPoints() {
+      this.allHighscores = await this.store.fetchHighscores()
+      this.lastUserPoints = 0
+      for (let scores of this.allHighscores) {
+        if (scores.userId === this.store.currentUser.id) {
+          this.lastUserPoints = scores.score
+        }
+      }
+    },
+  },
+
+  async created() {
+    await this.setUserPoints()
+    await this.setCategoryText()
   },
 }
 </script>
