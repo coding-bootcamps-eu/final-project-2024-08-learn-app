@@ -251,4 +251,12 @@ li.correct label {
     }
   }
 }
+
+@media (min-width: 800px) {
+  .submit-button,
+  .next-button,
+  .result {
+    margin-top: 0rem;
+  }
+}
 </style>
