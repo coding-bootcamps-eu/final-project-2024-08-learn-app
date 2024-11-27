@@ -170,6 +170,7 @@ export const useUsersStore = defineStore('user', {
       const user = users.find((u) => u.username === username && u.password === password)
       if (user) {
         this.currentUser = user
+        console.log(user)
         localStorage.setItem('currentUser', JSON.stringify(user))
         router.push('/home')
         return true
