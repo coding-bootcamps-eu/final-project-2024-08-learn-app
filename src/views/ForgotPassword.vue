@@ -1,7 +1,8 @@
 <template>
   <p>
-    Du hast dein Passwort vergessen? Oops, da können wir dir momentan leider noch nicht
-    weiterhelfen. ;) Du kannst aber einen neuen Account erstellen.
+    Du hast dein Passwort vergessen?<br />Da können wir dir momentan leider noch nicht
+    weiterhelfen.<br />
+    Du kannst aber einen neuen Account erstellen.
   </p>
 </template>
 

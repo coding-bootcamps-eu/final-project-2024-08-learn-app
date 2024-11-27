@@ -190,15 +190,18 @@ export const useUsersStore = defineStore('user', {
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${this.currentUser.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/users/${this.currentUser.id}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              ...this.currentUser,
+            }),
           },
-          body: JSON.stringify({
-            ...this.currentUser,
-          }),
-        })
+        )
 
         if (response.ok) {
           this.currentUser = await response.json()
@@ -257,7 +260,7 @@ export const useUsersStore = defineStore('user', {
         if (!response.ok) throw new Error('Failed to fetch highscores')
         const highscores = await response.json()
 
-        let userHighscore = highscores.find(hs => hs.userId === userId)
+        let userHighscore = highscores.find((hs) => hs.userId === userId)
 
         if (userHighscore) {
           userHighscore.score += points
@@ -266,12 +269,11 @@ export const useUsersStore = defineStore('user', {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userHighscore),
           })
-          })
         } else {
           const newHighscore = {
             id: highscores.length + 1,
             userId: userId,
-            categoryId: "0",
+            categoryId: '0',
             score: points,
             answerHistory: [],
           }
@@ -281,15 +283,10 @@ export const useUsersStore = defineStore('user', {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newHighscore),
           })
-          })
         }
       } catch (error) {
         console.error('Failed to update highscore:', error)
-        console.error('Failed to update highscore:', error)
       }
-    },
-  },
-})
     },
   },
 })
