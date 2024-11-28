@@ -79,7 +79,6 @@ export default {
     },
   },
   async created() {
-    console.log('Current User:', this.store.currentUser);
     if (this.categoryId === 'all') {
       const categories = await this.store.fetchCategoryWithCards(this.categoryId)
       this.currentCategory.cards = categories.flatMap((category) => category.cards)

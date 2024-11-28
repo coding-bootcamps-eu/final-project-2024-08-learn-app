@@ -27,7 +27,12 @@
           v-show="showBtnNextCard"
           @click="$emit('nextBtn')"
         />
-        <MainButton class="add-card" text="Karte hinzufügen" v-show="showBtnAddCard" />
+        <MainButton
+          class="add-card"
+          text="Karte löschen"
+          v-show="showBtnDelCard"
+          @click="$emit('delBtn')"
+        />
       </div>
     </div>
   </div>
@@ -58,7 +63,7 @@ export default {
     },
     checked: { type: Boolean },
 
-    showBtnAddCard: {
+    showBtnDelCard: {
       type: Boolean,
     },
 
@@ -152,6 +157,22 @@ h1 {
 .add-card {
   grid-area: karte;
   justify-self: end;
+}
+.add-card {
+  font-size: calc(0.3rem + (50 - 0.3) * ((100cqw - 200px) / (2000 - 200)));
+  margin-bottom: 5cqw;
+}
+
+.add-card:hover {
+  font-size: calc(0.3rem + (50 - 0.3) * ((100cqw - 200px) / (2000 - 200)));
+  background-color: var(--clr-green-dark);
+  color: white;
+}
+
+.add-card:active {
+  font-size: calc(0.3rem + (50 - 0.3) * ((100cqw - 200px) / (2000 - 200)));
+  background-color: var(--clr-green-dark);
+  color: var(--clr-green-light);
 }
 
 @media (min-width: 768px) {
