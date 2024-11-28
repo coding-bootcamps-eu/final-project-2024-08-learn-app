@@ -77,7 +77,8 @@ export default {
     },
 
     getCategoryId() {
-      return this.store.currentUser.lastPlayed
+      console.log()
+      return this.store.currentUser.lastPlayed || "93847210"
     },
   },
   methods: {
